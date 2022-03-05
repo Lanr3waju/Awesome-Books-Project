@@ -25,28 +25,37 @@ const bookSectionHeader = document.createElement('h1')
   addBook.className = 'buttons adItem'
   addBook.appendChild(addBookText);
   
+  const identification =() => {
+   return Math.floor(Math.random()*100001)
+  }
+
 let books = [
   { 
     title: 'Things fall apart',
     author: 'Chinua Achebe',
+    id: identification()
+
   },
 
   {
     title: 'JavaScript for Dummies',
     author: 'Abass Olanrewaju',
+    id: identification()
   },
 
   {
     title: 'How to Eat Eba',
     author: 'Abass Olanrewaju',
+    id: identification()
   }
 ]
 
 const iterateBooksList = () => {
 
-books.forEach( eachBook => {
 
-  const { title, author } = eachBook
+  
+books.forEach( eachBook => {
+  const { title, author, id } = eachBook
   const bookTitle = document.createElement('li');
   const bookTitleText = document.createTextNode(`Book Title: ${title}`);
   bookTitle.appendChild(bookTitleText);
@@ -58,6 +67,7 @@ books.forEach( eachBook => {
   const removeBook = document.createElement('button');
   const removeBookText = document.createTextNode('remove book');
   removeBook.appendChild(removeBookText)
+  removeBook.id = id
   removeBook.className = 'buttons'
   removeBook.value = 'remove'
 
@@ -82,6 +92,7 @@ const adItem = () => {
   let newObjects = {
     title: inputBookTitle.value,
     author: inputBookAuthor.value,
+    id: identification()
   }
 
   const newBookTitle = document.createElement('li');
@@ -97,6 +108,7 @@ const adItem = () => {
   removeBook.appendChild(removeBookText)
   removeBook.className = 'buttons'
   removeBook.value = 'remove'
+  removeBook.id = newObjects.id
 
 if (inputBookTitle.value && inputBookAuthor.value) {
   books.push(newObjects)
@@ -104,11 +116,26 @@ if (inputBookTitle.value && inputBookAuthor.value) {
   bookShelf.appendChild(newBookAuthor);
   bookShelf.appendChild(removeBook)
 
-  // console.log(books)
+  console.log(books)
 }
 }
 addBook.addEventListener('click', pushBooks)
 }
+
+const deleteBook = ( event ) => {
+  const { target } = event;
+  if(target.value === 'remove'){
+    books.splice(1, 1);
+  console.log(books);
+  }
+}
+
+body.addEventListener('click', deleteBook)
+
+
+
+
+
 
 const startApp = () => {
   iterateBooksList();
