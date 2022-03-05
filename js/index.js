@@ -122,15 +122,32 @@ if (inputBookTitle.value && inputBookAuthor.value) {
 addBook.addEventListener('click', pushBooks)
 }
 
+
+const removeBookFn = () => {
+
 const deleteBook = ( event ) => {
   const { target } = event;
+
+  const currentId = parseInt(target.id, 10);
+  const currentBook = books.find(({ id }) => id === currentId);
+
+  console.log(currentBook);
+  let me = books.indexOf(currentBook);
+  console.log(currentBook)
+  console.log(me)
+
   if(target.value === 'remove'){
-    books.splice(1, 1);
+    books.splice(me, 1);
+    // bookShelf.removeChild(currentBook.title);
+    // bookShelf.removeChild(currentBook.author)
+
   console.log(books);
   }
 }
 
 body.addEventListener('click', deleteBook)
+}
+
 
 
 
@@ -140,6 +157,7 @@ body.addEventListener('click', deleteBook)
 const startApp = () => {
   iterateBooksList();
   adItem();
+  removeBookFn()
 };
 
 startApp();
