@@ -59,16 +59,18 @@ books.forEach( eachBook => {
   const bookTitle = document.createElement('li');
   const bookTitleText = document.createTextNode(`Book Title: ${title}`);
   bookTitle.appendChild(bookTitleText);
+  bookTitle.className = id
 
   const bookAuthor = document.createElement('li');
   const bookAuthorText = document.createTextNode(`Book Author: ${author}`);
   bookAuthor.appendChild(bookAuthorText);
+  bookAuthor.className = id
 
   const removeBook = document.createElement('button');
   const removeBookText = document.createTextNode('remove book');
   removeBook.appendChild(removeBookText)
   removeBook.id = id
-  removeBook.className = 'buttons'
+  removeBook.className = `buttons ${id}`
   removeBook.value = 'remove'
 
   bookShelf.appendChild(bookTitle);
@@ -98,25 +100,26 @@ const adItem = () => {
   const newBookTitle = document.createElement('li');
   const newBookTitleText = document.createTextNode(`Book Title: ${newObjects.title}`);
   newBookTitle.appendChild(newBookTitleText);
+  newBookTitle.className = newObjects.id
 
   const newBookAuthor = document.createElement('li');
   const newBookAuthorText = document.createTextNode(`Book Author: ${newObjects.author}`);
   newBookAuthor.appendChild(newBookAuthorText);
+  newBookAuthor.className = newObjects.id
 
   const removeBook = document.createElement('button');
   const removeBookText = document.createTextNode('remove book');
   removeBook.appendChild(removeBookText)
-  removeBook.className = 'buttons'
+  removeBook.className = `buttons ${newObjects.id}`
   removeBook.value = 'remove'
   removeBook.id = newObjects.id
+
 
 if (inputBookTitle.value && inputBookAuthor.value) {
   books.push(newObjects)
   bookShelf.appendChild(newBookTitle);
   bookShelf.appendChild(newBookAuthor);
   bookShelf.appendChild(removeBook)
-
-  console.log(books)
 }
 }
 addBook.addEventListener('click', pushBooks)
@@ -124,35 +127,45 @@ addBook.addEventListener('click', pushBooks)
 
 
 const removeBookFn = () => {
-
 const deleteBook = ( event ) => {
   const { target } = event;
 
   const currentId = parseInt(target.id, 10);
-  const currentBook = books.find(({ id }) => id === currentId);
+  const currentBookList = books.find(({ id }) => id === currentId);
 
-  console.log(currentBook);
-  let me = books.indexOf(currentBook);
-  console.log(currentBook)
-  console.log(me)
+  let currentBook = document.getElementsByClassName(currentId);
+  let currentBookTitle = currentBook[0];
+  let currentBookAuthor = currentBook[1]
+  let bookButton = currentBook[2]
+
+  const clearBook = () => {
+    currentBookTitle.remove()
+    currentBookAuthor.remove()
+    bookButton.remove()
+  }
+
+  let bookIndex = books.indexOf(currentBookList);
 
   if(target.value === 'remove'){
-    books.splice(me, 1);
-    // bookShelf.removeChild(currentBook.title);
-    // bookShelf.removeChild(currentBook.author)
-
-  console.log(books);
+    books.splice(bookIndex, 1);
+    clearBook()
   }
 }
 
 body.addEventListener('click', deleteBook)
 }
 
+addBook.onclick = () => {
+  
+  localStorage.setItem('books', JSON.stringify(books));
+  console.log(localStorage)
 
-
-
-
-
+  const getBooks = localStorage.getItem('books');
+  const updatedBooks = JSON.parse(getBooks);
+  
+  books = updatedBooks
+  console.log(localStorage)
+}
 
 const startApp = () => {
   iterateBooksList();
