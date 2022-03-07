@@ -114,9 +114,9 @@ const adItem = () => {
   removeBook.value = 'remove'
   removeBook.id = newObjects.id
 
-
 if (inputBookTitle.value && inputBookAuthor.value) {
   books.push(newObjects)
+  localStorage.setItem('books', JSON.stringify(books));
   bookShelf.appendChild(newBookTitle);
   bookShelf.appendChild(newBookAuthor);
   bookShelf.appendChild(removeBook)
@@ -124,6 +124,7 @@ if (inputBookTitle.value && inputBookAuthor.value) {
 }
 addBook.addEventListener('click', pushBooks)
 }
+
 
 
 const removeBookFn = () => {
@@ -142,6 +143,8 @@ const deleteBook = ( event ) => {
     currentBookTitle.remove()
     currentBookAuthor.remove()
     bookButton.remove()
+    localStorage.setItem('books', JSON.stringify(books));
+    console.log(books)
   }
 
   let bookIndex = books.indexOf(currentBookList);
@@ -155,19 +158,16 @@ const deleteBook = ( event ) => {
 body.addEventListener('click', deleteBook)
 }
 
-addBook.onclick = () => {
-  
-  localStorage.setItem('books', JSON.stringify(books));
-  console.log(localStorage)
-
+const controlLocalStorageData = () => {
   const getBooks = localStorage.getItem('books');
-  const updatedBooks = JSON.parse(getBooks);
-  
+  const updatedBooks = JSON.parse(getBooks);  
+  addBook.onclick = () =>  console.log(updatedBooks)
   books = updatedBooks
-  console.log(localStorage)
-}
+};
+
 
 const startApp = () => {
+  controlLocalStorageData()
   iterateBooksList();
   adItem();
   removeBookFn()
