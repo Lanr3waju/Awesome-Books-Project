@@ -1,0 +1,18 @@
+{
+  "connector": {
+    "name": "local",
+    "options": {
+      "pattern": ["**", "!.git/**", "!node_modules/**"]
+    }
+  },
+  "extends": ["development"],
+  "formatters": ["stylish"],
+  "hints": {
+    "button-type": "error",
+    "disown-opener": "error",
+    "html-checker": "error",
+    "meta-charset-utf-8": "error",
+    "meta-viewport": "error",
+    "no-inline-styles": "error"
+  }
+}
