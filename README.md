@@ -36,7 +36,7 @@ This is a JavaScript project on building an app which stores books, add to the b
 
 ## Live Demo
 
-[Live Demo Link](https://lanrewaju-elib.netlify.app/)
+[Live Demo Link](https://lanrewaju-e-lib.netlify.app/)
 
 ### Development (Running locally)
 

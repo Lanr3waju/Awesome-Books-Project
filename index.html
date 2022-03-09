@@ -8,9 +8,19 @@
     <link rel="stylesheet" href="./css/reset.css" />
   </head>
   <body>
-    <h1 class="header">
-      AWESOME BOOKS LIBRARY
-    </h1>
+    <section class="main-section">
+      <h1 class="header">
+        AWESOME BOOKS LIBRARY
+      </h1>
+      <div class="books-container"></div>
+    </section>
+
+    <form class="new-book-form">
+      <input class="book-title" type="text" placeholder="enter book title" required />
+      <input class="book-author" type="text" placeholder="enter book author" required />
+      <button type="submit" class="buttons add-book">Add</button>
+    </form>
+
     <script src="./js/index.js"></script>
   </body>
 </html>

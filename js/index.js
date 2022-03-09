@@ -1,63 +1,27 @@
 const body = document.querySelector('body');
+const booksContainer = document.querySelector('.books-container');
+const bookSection = document.querySelector('.main-section');
+const inputBookTitle = document.querySelector('.book-title');
+const inputBookAuthor = document.querySelector('.book-author');
+const newBookForm = document.querySelector('.new-book-form');
+const addBookButton = document.querySelector('.add-book');
+const generateUniqueId = () => Math.floor(Math.random() * 100001);
 
-const booksContainer = document.createElement('div');
-booksContainer.className = 'books-container';
-
-const bookSection = document.createElement('section');
-
-const inputBookTitle = document.createElement('input');
-inputBookTitle.setAttribute('type', 'text');
-inputBookTitle.placeholder = 'enter book title';
-inputBookTitle.className = 'book-title';
-
-const inputBookAuthor = document.createElement('input');
-inputBookAuthor.setAttribute('type', 'text');
-inputBookAuthor.placeholder = 'enter book author';
-
-const addBook = document.createElement('button');
-const addBookText = document.createTextNode('add');
-addBook.className = 'buttons adItem';
-addBook.appendChild(addBookText);
-
-const identification = () => Math.floor(Math.random() * 100001);
-
-let books = [
-  {
-    title: 'Things fall apart',
-    author: 'Chinua Achebe',
-    id: identification(),
-  },
-
-  {
-    title: 'JavaScript for Dummies',
-    author: 'Abass Olanrewaju',
-    id: identification(),
-  },
-
-  {
-    title: 'How to Eat Eba',
-    author: 'Abass Olanrewaju',
-    id: identification(),
-  },
-];
-
-const iterateBooksList = () => {
-  books.forEach(eachBook => {
+const iterateArrayList = booksArr => {
+  booksArr.forEach(eachBook => {
     const { title, author, id } = eachBook;
     const bookTitle = document.createElement('li');
-    const bookTitleText = document.createTextNode(`Book Title: ${title}`);
-    bookTitle.appendChild(bookTitleText);
+    bookTitle.textContent = `Book Title: ${title}`;
 
     const bookAuthor = document.createElement('li');
-    const bookAuthorText = document.createTextNode(`Book Author: ${author}`);
-    bookAuthor.appendChild(bookAuthorText);
+    bookAuthor.textContent = `Book Author: ${author}`;
 
-    const removeBook = document.createElement('button');
-    const removeBookText = document.createTextNode('remove book');
-    removeBook.appendChild(removeBookText);
-    removeBook.id = id;
-    removeBook.className = `buttons ${id}`;
-    removeBook.value = 'remove';
+    const removeBookButton = document.createElement('button');
+    removeBookButton.textContent = 'remove book';
+
+    removeBookButton.id = id;
+    removeBookButton.className = `buttons ${id}`;
+    removeBookButton.value = 'remove';
 
     const bookShelf = document.createElement('ul');
     bookShelf.className = 'books-ul';
@@ -67,88 +31,99 @@ const iterateBooksList = () => {
 
     booksContainer.appendChild(bookShelf);
     bookSection.appendChild(booksContainer);
-    bookShelf.appendChild(removeBook);
-    body.appendChild(bookSection);
+    bookShelf.appendChild(removeBookButton);
   });
-
-  bookSection.appendChild(inputBookTitle);
-  bookSection.appendChild(inputBookAuthor);
-  bookSection.appendChild(addBook);
 };
 
-const addbooks = () => {
-  const pushBooks = () => {
-    const newObjects = {
-      title: inputBookTitle.value,
-      author: inputBookAuthor.value,
-      id: identification(),
-    };
+let books = [
+  {
+    title: 'Things fall apart',
+    author: 'Chinua Achebe',
+    id: generateUniqueId(),
+  },
 
-    const newBookTitle = document.createElement('li');
-    const newBookTitleText = document.createTextNode(`Book Title: ${newObjects.title}`);
-    newBookTitle.appendChild(newBookTitleText);
+  {
+    title: 'JavaScript for Dummies',
+    author: 'Abass Olanrewaju',
+    id: generateUniqueId(),
+  },
 
-    const newBookAuthor = document.createElement('li');
-    const newBookAuthorText = document.createTextNode(`Book Author: ${newObjects.author}`);
-    newBookAuthor.appendChild(newBookAuthorText);
+  {
+    title: 'How to Eat Eba',
+    author: 'Abass Olanrewaju',
+    id: generateUniqueId(),
+  },
+];
 
-    const removeBook = document.createElement('button');
-    const removeBookText = document.createTextNode('remove book');
-    removeBook.appendChild(removeBookText);
-    removeBook.className = `buttons ${newObjects.id}`;
-    removeBook.value = 'remove';
-    removeBook.id = newObjects.id;
-
-    const newBookLists = document.createElement('ul');
-    newBookLists.appendChild(newBookTitle);
-    newBookLists.appendChild(newBookAuthor);
-    newBookLists.appendChild(removeBook);
-    newBookLists.className = 'books-ul';
-    newBookLists.id = newObjects.id;
-
-    if (inputBookTitle.value && inputBookAuthor.value) {
-      books.push(newObjects);
-      localStorage.setItem('books', JSON.stringify(books));
-      booksContainer.appendChild(newBookLists);
-    }
+const pushBooks = () => {
+  const newBooks = {
+    title: inputBookTitle.value,
+    author: inputBookAuthor.value,
+    id: generateUniqueId(),
   };
-  addBook.addEventListener('click', pushBooks);
+
+  const newBookTitle = document.createElement('li');
+  newBookTitle.textContent = `Book Title: ${newBooks.title}`;
+
+  const newBookAuthor = document.createElement('li');
+  newBookAuthor.textContent = `Book Author: ${newBooks.author}`;
+
+  const removeBookButton = document.createElement('button');
+  removeBookButton.textContent = 'remove book';
+
+  removeBookButton.className = `buttons ${newBooks.id}`;
+  removeBookButton.value = 'remove';
+  removeBookButton.id = newBooks.id;
+
+  const newBookLists = document.createElement('ul');
+  newBookLists.appendChild(newBookTitle);
+  newBookLists.appendChild(newBookAuthor);
+  newBookLists.appendChild(removeBookButton);
+  newBookLists.className = 'books-ul';
+  newBookLists.id = newBooks.id;
+
+  if (inputBookTitle.value && inputBookAuthor.value) {
+    books.push(newBooks);
+    localStorage.setItem('books', JSON.stringify(books));
+    booksContainer.appendChild(newBookLists);
+  }
 };
 
-const removeBook = () => {
-  const deleteBook = event => {
-    const { target } = event;
+const deleteBook = event => {
+  const { target } = event;
 
-    const currentId = parseInt(target.id, 10);
-    const currentBookList = books.find(({ id }) => id === currentId);
-    const currentBook = document.getElementById(currentId);
+  const currentId = parseInt(target.id, 10);
+  const currentBookList = books.find(({ id }) => id === currentId);
+  const currentBook = document.getElementById(currentId);
+  const bookIndex = books.indexOf(currentBookList);
 
-    const clearBook = () => {
-      currentBook.remove();
-      localStorage.setItem('books', JSON.stringify(books));
-    };
-    const bookIndex = books.indexOf(currentBookList);
-
-    if (target.value === 'remove') {
-      books.splice(bookIndex, 1);
-      clearBook();
-    }
-  };
-
-  body.addEventListener('click', deleteBook);
+  if (target.value === 'remove') {
+    books.splice(bookIndex, 1);
+    currentBook.remove();
+    localStorage.setItem('books', JSON.stringify(books));
+  }
 };
 
 const displayLocalStorageData = () => {
   const getBooks = localStorage.getItem('books');
   const updatedBooks = JSON.parse(getBooks);
-  books = updatedBooks;
+  if (localStorage.length > 0) {
+    books = updatedBooks;
+  }
+};
+
+const handleEventListeners = () => {
+  addBookButton.addEventListener('click', pushBooks);
+  newBookForm.addEventListener('submit', event => {
+    event.preventDefault();
+  });
+  body.addEventListener('click', deleteBook);
 };
 
 const startApp = () => {
   displayLocalStorageData();
-  iterateBooksList();
-  addbooks();
-  removeBook();
+  iterateArrayList(books);
+  handleEventListeners();
 };
 
 startApp();
