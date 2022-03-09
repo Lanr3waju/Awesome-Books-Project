@@ -3,12 +3,7 @@ const body = document.querySelector('body');
 const booksContainer = document.createElement('div');
 booksContainer.className = 'books-container';
 
-const bookSectionHeader = document.createElement('h1');
-const bookSectionHeaderText = document.createTextNode('Awesome Books');
-bookSectionHeader.appendChild(bookSectionHeaderText);
-
 const bookSection = document.createElement('section');
-bookSection.appendChild(bookSectionHeader);
 
 const inputBookTitle = document.createElement('input');
 inputBookTitle.setAttribute('type', 'text');

@@ -21,9 +21,5 @@
     "lint": "npx stylelint \"**/*.css\" --fix && npx eslint . --fix",
     "lint:check": "npx stylelint \"**/*.css\" && npx eslint ."
   },
-  "browserslist": [
-    "defaults",
-    "not IE 11",
-    "maintained node versions"
-  ]
+  "browserslist": ["defaults", "not IE 11", "maintained node versions"]
 }
