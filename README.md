@@ -1,36 +1,30 @@
-# Portfolio Project
+# Awesome Books Project
 
-> This is the first project i will carry out on HTML and CSS and it encompasses all of the major functions and purpose of HTML and CSS. It also creates a platform to show my works, It is based on a mobile first approach, which means the page for the mobile is designed first and it is then adapted to large screens.
+> This is an e-library project, based primarily on `js` which implements features as; storage of books, adding of books and removal of books. It implements various `js` methods and API's.
 
-![screenshot](./img/preview.png)
+![screenshot](./img/awesome-books.png)
 
-This is project on building a personal portfolio from a set of figma templates.
+This is a JavaScript project on building an app which stores books, add to the books and remove from the stored books.
 
 ## Built With
 
 - HTML
 
   - `ul` Unordered List (To list out certain items on the page)
-  - `nav` element (To create a nav-bar)
-  - `a` tags (To link to other external webpages)
-  - `svg` are also used in the HTML
   - HTML `form`
-  - Form attributes; `action` & `method`
   - `input` attributes; `placeholder`
-  - HTML5 form validation
 
 - Java Script
 - Implemented DOM manipulation in various parts of the project to make page dynamic.
 - JS `Objects`, `Arrays`, & `Object Arrays` to store data of similar items.
 - Implement the use of Arrow Functions `=>` and `{destructure}` methods to match the modern concentions.
 - Made use of various `JS` objects and methods such as; `node.createElement()`, `node.AppendChild()`, `node.replaceChild()`, etc. to avoid the use of `innerHTML` for security considerations.
-- Implemented `For---Loops`, `array.map()`, `array.forEach()`, through the course of the project to loop through `objects` in the `Objects Array`; thus making it possible to manipulate the objects and produce desired result.
+- Implemented `array.forEach()`, through the course of the project to loop through `objects` in the `Objects Array`; thus making it possible to manipulate the objects and produce desired result.
 - Made use of `if Statements` to match specific use cases.
-- Implement the use of `Toggle classList` and `eventListeners` to make hamburger button functional.
-- Implement the use of `array.find()` & `parseInt` to locate the specific objects to display when modal pops up.
-- Implemented `HTML` form validity in my `JS` to enable client side validations of inputs.
+- Implement the use of `eventListeners` to make 'add' & 'remove' buttons functional.
+- Implement the use of `array.find()` & `parseInt` to locate the specific books to remove when the appropriate button is clicked.
 - The `JSON` API `stringify` & `parse` was implemented, to enable JS Objects to be used on windows local storage.
-- The `node.localStorage` `set()` & `get()` methods were used to store and retrieve user inouts, till the form is submitted.
+- The `node.localStorage` `set()` & `get()` methods were used to store and retrieve user inouts.
 
 * CSS
   - Pseudo-selectors (hover; to add hover effect to certain elements)
@@ -39,12 +33,10 @@ This is project on building a personal portfolio from a set of figma templates.
   - `Flexbox`
   - Transition property
   - CSS background property
-  - CSS `Grid`
-  - `media-query` to make page responsive
 
 ## Live Demo
 
-[Live Demo Link](https://abass-portfolio-project.netlify.app/)
+[Live Demo Link](https://lanrewaju-elib.netlify.app/)
 
 ### Development (Running locally)
 
@@ -100,7 +92,8 @@ npm run html-validator
 ## 👤 Author
 
 - Github: [@Lanr3waju]https://github.com/Lanr3waju)
-- Instagram: [@Abass Olanrewaju](https://www.instagram.com/abass.abdul.wasii)
+- LinkedIn: [@Abass Olanrewaju](https://www.linkedin.com/in/abass-olanrewaju-abdul-wasi-53883422a/)
+- Twitter: [@abdul-wasi-img](https://twitter.com/abdul_wasi_img)
 
 ## 🤝 Contributing
 
@@ -114,7 +107,7 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- I appreciate the efforts of my mentors in the web development for their guidance and contribtution
+- I appreciate the efforts of my mentors (https://github.com/bolah2009) & (https://github.com/adejam)for their constatnt guidance and contribtution
 
 ## 📝 License
 
