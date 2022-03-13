@@ -107,7 +107,9 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- I appreciate the efforts of my mentors (https://github.com/bolah2009) & (https://github.com/adejam)for their constatnt guidance and contribtution
+- I appreciate the efforts of my mentors for their constatnt guidance and contribtution.
+- [@bolah2009](http://github.com/bolah2009)
+- [@adejam](https://github.com/adejam)
 
 ## 📝 License
 

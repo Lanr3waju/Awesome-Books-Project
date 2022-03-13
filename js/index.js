@@ -1,10 +1,9 @@
 const body = document.querySelector('body');
-const booksContainer = document.querySelector('.books-container');
-const bookSection = document.querySelector('.main-section');
-const inputBookTitle = document.querySelector('.book-title');
-const inputBookAuthor = document.querySelector('.book-author');
-const newBookForm = document.querySelector('.new-book-form');
-const addBookButton = document.querySelector('.add-book');
+const booksContainer = document.querySelector('#books-container');
+const bookSection = document.querySelector('#main-section');
+const inputBookTitle = document.querySelector('#book-title');
+const inputBookAuthor = document.querySelector('#book-author');
+const newBookForm = document.querySelector('#new-book-form');
 const generateUniqueId = () => Math.floor(Math.random() * 100001);
 
 const iterateArrayList = booksArr => {
@@ -113,7 +112,7 @@ const displayLocalStorageData = () => {
 };
 
 const handleEventListeners = () => {
-  addBookButton.addEventListener('click', pushBooks);
+  newBookForm.addEventListener('click', pushBooks);
   newBookForm.addEventListener('submit', event => {
     event.preventDefault();
   });
