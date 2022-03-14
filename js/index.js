@@ -6,6 +6,19 @@ const inputBookAuthor = document.querySelector('#book-author');
 const newBookForm = document.querySelector('#new-book-form');
 const generateUniqueId = () => Math.floor(Math.random() * 100001);
 
+class Book {
+  title;
+
+  author;
+
+  id;
+
+  constructor(title, author, id) {
+    this.title = title;
+    this.author = author;
+    this.id = id;
+  }
+}
 const iterateArrayList = booksArr => {
   booksArr.forEach(eachBook => {
     const { title, author, id } = eachBook;
@@ -35,31 +48,15 @@ const iterateArrayList = booksArr => {
 };
 
 let books = [
-  {
-    title: 'Things fall apart',
-    author: 'Chinua Achebe',
-    id: generateUniqueId(),
-  },
+  new Book('Things fall apart', 'Chinua Achebe', generateUniqueId()),
 
-  {
-    title: 'JavaScript for Dummies',
-    author: 'Abass Olanrewaju',
-    id: generateUniqueId(),
-  },
+  new Book('JavaScript for Dummies', 'Abass Olanrewaju', generateUniqueId()),
 
-  {
-    title: 'How to Eat Eba',
-    author: 'Abass Olanrewaju',
-    id: generateUniqueId(),
-  },
+  new Book('How to eat Eba', 'Abass Olanrewaju', generateUniqueId()),
 ];
 
 const pushBooks = () => {
-  const newBooks = {
-    title: inputBookTitle.value,
-    author: inputBookAuthor.value,
-    id: generateUniqueId(),
-  };
+  const newBooks = new Book(inputBookTitle.value, inputBookAuthor.value, generateUniqueId());
 
   const newBookTitle = document.createElement('li');
   newBookTitle.textContent = `Book Title: ${newBooks.title}`;
