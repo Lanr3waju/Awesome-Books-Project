@@ -1,34 +1,55 @@
-# Project Name
+# Awesome Books Project
 
-> One paragraph statement about the project.
+> This is an e-library project, based primarily on `js` which implements features as; storage of books, adding of books and removal of books. It implements various `js` methods and API's.
 
-![screenshot](./app_screenshot.png)
+![screenshot](./img/awesome-books.png)
 
-Additional description about the project and its features.
+This is a JavaScript project on building an app which stores books, add to the books and remove from the stored books.
 
 ## Built With
 
-- Major languages,
-- frameworks,
-- technologies used
+- HTML
+
+  - `ul` Unordered List (To list out certain items on the page)
+  - HTML `form`
+  - `input` attributes; `placeholder`
+
+- Java Script
+- Implemented DOM manipulation in various parts of the project to make page dynamic.
+- JS `Objects`, `Arrays`, & `Object Arrays` to store data of similar items.
+- Implement the use of Arrow Functions `=>` and `{destructure}` methods to match the modern concentions.
+- Made use of various `JS` objects and methods such as; `node.createElement()`, `node.AppendChild()`, `node.replaceChild()`, etc. to avoid the use of `innerHTML` for security considerations.
+- Implemented `array.forEach()`, through the course of the project to loop through `objects` in the `Objects Array`; thus making it possible to manipulate the objects and produce desired result.
+- Made use of `if Statements` to match specific use cases.
+- Implement the use of `eventListeners` to make 'add' & 'remove' buttons functional.
+- Implement the use of `array.find()` & `parseInt` to locate the specific books to remove when the appropriate button is clicked.
+- The `JSON` API `stringify` & `parse` was implemented, to enable JS Objects to be used on windows local storage.
+- The `node.localStorage` `set()` & `get()` methods were used to store and retrieve user inouts.
+
+* CSS
+  - Pseudo-selectors (hover; to add hover effect to certain elements)
+  - Pseudo-elements
+  - CSS position property
+  - `Flexbox`
+  - Transition property
+  - CSS background property
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://lanrewaju-e-lib.netlify.app/)
 
 ### Development (Running locally)
 
 - Clone the project
 
 ```bash
-git clone https://github.com/user/html-css-template.git
-
+git clone https://github.com/Lanr3waju/portfolio-project.git
 ```
 
 - Install Dependencies
 
 ```bash
-npm run install
+npm install
 ```
 
 To run StyleLint by itself, you may run the lint task:
@@ -70,9 +91,9 @@ npm run html-validator
 
 ## 👤 Author
 
-- Github: [@author](https://github.com/author)
-- Twitter: [@author](https://twitter.com/author)
-- Linkedin: [@author](https://www.linkedin.com/in/author/)
+- Github: [@Lanr3waju]https://github.com/Lanr3waju)
+- LinkedIn: [@Abass Olanrewaju](https://www.linkedin.com/in/abass-olanrewaju-abdul-wasi-53883422a/)
+- Twitter: [@abdul-wasi-img](https://twitter.com/abdul_wasi_img)
 
 ## 🤝 Contributing
 
@@ -86,9 +107,9 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration, resources/assets used
-- etc
+- I appreciate the efforts of my mentors for their constatnt guidance and contribtution.
+- [@bolah2009](http://github.com/bolah2009)
+- [@adejam](https://github.com/adejam)
 
 ## 📝 License
 

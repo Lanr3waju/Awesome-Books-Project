@@ -21,7 +21,7 @@ jobs:
         run: |
           npm run format:check
 
-  stylelint:
+  css:
     name: StyleLint
     runs-on: ubuntu-latest
     if: always()
@@ -38,11 +38,11 @@ jobs:
           npm install
       - name: Run StyleLint
         run: |
-          npm run stylelint:check
+          npm run lint:check
 
-  eslint:
-    name: ESLint
-    runs-on: ubuntu-18.04
+  webhint:
+    name: Webhint
+    runs-on: ubuntu-latest
     if: always()
 
     steps:
@@ -55,5 +55,18 @@ jobs:
       - name: Install required dependency for node
         run: |
           npm install
+      - name: Webhint Report
+        run: npx hint --telemetry=off .
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Setup ESLint
+        run: |
+          npm install --save-dev eslint@7.x eslint-config-airbnb-base@14.x eslint-plugin-import@2.x babel-eslint@10.x
       - name: ESLint Report
-        run: npm run eslint:check
+        run: npx eslint .
