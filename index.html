@@ -4,6 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
   </head>
-  <body></body>
+  <body>
+    <section id="main-section" class="main-section">
+      <h1 class="header">
+        AWESOME BOOKS LIBRARY
+      </h1>
+      <div id="books-container" class="books-container"></div>
+    </section>
+
+    <form id="new-book-form" class="new-book-form">
+      <input
+        id="book-title"
+        class="book-title"
+        type="text"
+        placeholder="enter book title"
+        required
+      />
+      <input
+        id="book-author"
+        class="book-author"
+        type="text"
+        placeholder="enter book author"
+        required
+      />
+      <button type="submit" class="buttons add-book">Add</button>
+    </form>
+
+    <script src="./js/index.js"></script>
+  </body>
 </html>

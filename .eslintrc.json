@@ -4,16 +4,27 @@
     "es6": true,
     "jest": true
   },
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "requireConfigFile": false
   },
   "extends": ["airbnb-base"],
   "rules": {
     "no-shadow": "off",
-    "no-param-reassign": "off",
+    "no-param-reassign": 2,
     "eol-last": "off",
-    "arrow-parens": "off"
+    "object-curly-newline": "off",
+    "arrow-parens": "off",
+    "import/extensions": [
+      1,
+      {
+        "js": "always",
+        "json": "always"
+      }
+    ],
+    "prefer-destructuring": ["error", { "object": true, "array": true }]
   },
   "ignorePatterns": ["dist/", "build/"]
 }
