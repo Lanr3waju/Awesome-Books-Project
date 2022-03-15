@@ -5,20 +5,26 @@ const inputBookTitle = document.querySelector('#book-title');
 const inputBookAuthor = document.querySelector('#book-author');
 const newBookForm = document.querySelector('#new-book-form');
 const generateUniqueId = () => Math.floor(Math.random() * 100001);
-
+const setItemToStore = item => {
+  localStorage.setItem('books', JSON.stringify(item));
+};
 class Book {
-  title;
-
-  author;
-
-  id;
-
   constructor(title, author, id) {
     this.title = title;
     this.author = author;
     this.id = id;
   }
+
+  pushBook(booksArr, newBooksArr, updatedArr) {
+    if (inputBookTitle.value && inputBookAuthor.value) {
+      booksArr.push(newBooksArr);
+      setItemToStore(booksArr);
+      booksContainer.appendChild(updatedArr);
+    }
+    return this;
+  }
 }
+
 const iterateArrayList = booksArr => {
   booksArr.forEach(eachBook => {
     const { title, author, id } = eachBook;
@@ -78,11 +84,7 @@ const pushBooks = () => {
   newBookLists.className = 'books-ul';
   newBookLists.id = newBooks.id;
 
-  if (inputBookTitle.value && inputBookAuthor.value) {
-    books.push(newBooks);
-    localStorage.setItem('books', JSON.stringify(books));
-    booksContainer.appendChild(newBookLists);
-  }
+  newBooks.pushBook(books, newBooks, newBookLists);
 };
 
 const deleteBook = event => {
@@ -96,7 +98,7 @@ const deleteBook = event => {
   if (target.value === 'remove') {
     books.splice(bookIndex, 1);
     currentBook.remove();
-    localStorage.setItem('books', JSON.stringify(books));
+    setItemToStore(books);
   }
 };
 
@@ -109,7 +111,7 @@ const displayLocalStorageData = () => {
 };
 
 const handleEventListeners = () => {
-  newBookForm.addEventListener('click', pushBooks);
+  newBookForm.addEventListener('submit', pushBooks);
   newBookForm.addEventListener('submit', event => {
     event.preventDefault();
   });
