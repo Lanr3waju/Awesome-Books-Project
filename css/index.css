@@ -23,6 +23,7 @@ body {
   color: goldenrod;
   background-color: black;
   padding: 10px;
+  box-shadow: 0 2px 4px goldenrod;
 }
 
 .book-texts {
@@ -39,6 +40,27 @@ input {
 
 .book-ul {
   display: flex;
+  width: 90%;
+  border-radius: 10px;
+  margin: 3px auto;
+  justify-content: space-around;
+  transition: all 100ms linear;
+}
+
+.book-ul:nth-child(1) {
+  margin-top: 25px;
+}
+
+.book-ul:nth-child(even) {
+  background-color: grey;
+}
+
+.book-ul:nth-child(odd) {
+  background-color: burlywood;
+}
+
+.book-ul:hover {
+  transform: scale(1.03);
 }
 
 .buttons {

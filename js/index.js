@@ -1,5 +1,4 @@
 /* eslint-disable operator-linebreak */
-const booksContainer = document.querySelector('#books-container');
 const store = () => {
   const generateID = () => {
     const id = `_${Math.random()
@@ -17,7 +16,7 @@ const store = () => {
     author.length > 0 &&
     typeof title === 'string' &&
     title.length > 0 &&
-    typeof pages === 'number';
+    pages.length > 0;
 
   const toggleRead = id => {
     memory = memory.map(element => {
@@ -33,8 +32,8 @@ const store = () => {
   const add = ({ author, title, pages }) => {
     if (isValid({ author, title, pages })) {
       const id = generateID();
-      memory = [...memory, { author, title, id, read }];
-      return true;
+      memory = [...memory, { author, title, pages, id, read }];
+      return { author, title, pages, id, read };
     }
     return null;
   };
@@ -60,46 +59,68 @@ const store = () => {
   };
 };
 
-store();
+const bookUI = (ulClass, buttonClass, liClass) => {
+  const displayBook = ({ author, title, pages }) => {
+    const ul = document.createElement('ul');
+    ul.className = ulClass;
 
-const displayBook = ({ author, title, pages }) => {
-  const ul = document.createElement('ul');
-  ul.className = 'book-ul';
+    const bookAuthor = document.createElement('li');
+    bookAuthor.textContent = `Book Author: ${author}`;
+    bookAuthor.className = liClass;
 
-  const bookAuthor = document.createElement('li');
-  bookAuthor.textContent = `Book Author: ${author}`;
+    const bookTitle = document.createElement('li');
+    bookTitle.textContent = `Book Title: ${title}`;
+    bookTitle.className = liClass;
 
-  const bookTitle = document.createElement('li');
-  bookTitle.textContent = `Book Title: ${title}`;
+    const bookPages = document.createElement('li');
+    bookPages.textContent = `No of Pages: ${pages}`;
+    bookTitle.className = liClass;
 
-  const bookPages = document.createElement('li');
-  bookPages.textContent = `No of Pages: ${pages}`;
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove Book';
+    removeButton.className = buttonClass;
 
-  const removeButton = document.createElement('button');
-  removeButton.textContent = 'Remove Book';
-  removeButton.className = 'buttons';
+    const readButton = document.createElement('button');
+    readButton.textContent = 'Read';
+    readButton.className = buttonClass;
 
-  const readButton = document.createElement('button');
-  readButton.textContent = 'Read';
-  readButton.className = 'buttons';
+    const container = document.querySelector('#books-container');
+    ul.appendChild(bookAuthor);
+    ul.appendChild(bookTitle);
+    ul.appendChild(bookPages);
+    ul.appendChild(removeButton);
+    ul.appendChild(readButton);
+    container.appendChild(ul);
+  };
 
-  ul.appendChild(bookAuthor);
-  ul.appendChild(bookTitle);
-  ul.appendChild(bookPages);
-  ul.appendChild(removeButton);
-  ul.appendChild(readButton);
-  booksContainer.appendChild(ul);
+  const displayAllBook = (allBooks = []) => {
+    allBooks.forEach(displayBook);
+  };
+
+  return {
+    displayBook,
+    displayAllBook,
+  };
 };
 
-const displayAllBook = (allBooks = []) => {
-  allBooks.forEach(displayBook);
+const form = document.querySelector('#new-book-form');
+const inputBookAuthor = document.querySelector('.book-author');
+const inputBookTitle = document.querySelector('.book-title');
+const inputBookPage = document.querySelector('.book-pages');
+
+const keep = store();
+const display = bookUI('book-ul', 'buttons');
+
+display.displayAllBook(keep.all());
+
+const handleBookAddition = event => {
+  event.preventDefault();
+  const book = keep.add({
+    author: inputBookAuthor.value,
+    title: inputBookTitle.value,
+    pages: inputBookPage.value,
+  });
+  display.displayBook(book);
 };
 
-const startApp = () => {
-  displayAllBook([
-    { author: 'Lanre', title: 'Java', pages: 24 },
-    { author: 'Lanre', title: 'The DOM', pages: 15 },
-  ]);
-};
-
-startApp();
+form.addEventListener('submit', handleBookAddition);
