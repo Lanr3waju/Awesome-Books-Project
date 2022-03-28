@@ -103,24 +103,45 @@ const bookUI = (ulClass, buttonClass, liClass) => {
   };
 };
 
-const form = document.querySelector('#new-book-form');
-const inputBookAuthor = document.querySelector('.book-author');
-const inputBookTitle = document.querySelector('.book-title');
-const inputBookPage = document.querySelector('.book-pages');
+const handleEventListeners = (formId, bookAuthorClass, bookTitleClass, bookPagesClass) => {
+  const form = document.querySelector(formId);
+  const inputBookAuthor = document.querySelector(bookAuthorClass);
+  const inputBookTitle = document.querySelector(bookTitleClass);
+  const inputBookPage = document.querySelector(bookPagesClass);
 
-const keep = store();
-const display = bookUI('book-ul', 'buttons');
+  const keep = store();
+  const display = bookUI('book-ul', 'buttons');
 
-display.displayAllBook(keep.all());
+  display.displayAllBook(keep.all());
 
-const handleBookAddition = event => {
-  event.preventDefault();
-  const book = keep.add({
-    author: inputBookAuthor.value,
-    title: inputBookTitle.value,
-    pages: inputBookPage.value,
-  });
-  display.displayBook(book);
+  const handleBookAddition = event => {
+    event.preventDefault();
+    const book = keep.add({
+      author: inputBookAuthor.value,
+      title: inputBookTitle.value,
+      pages: inputBookPage.value,
+    });
+    display.displayBook(book);
+  };
+
+  const addToDomOnClick = () => {
+    form.addEventListener('submit', handleBookAddition);
+  };
+
+  return {
+    addToDomOnClick,
+  };
 };
 
-form.addEventListener('submit', handleBookAddition);
+const addToDom = handleEventListeners(
+  '#new-book-form',
+  '.book-author',
+  '.book-title',
+  '.book-pages',
+);
+
+const startApp = () => {
+  addToDom.addToDomOnClick();
+};
+
+startApp();
