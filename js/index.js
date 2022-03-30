@@ -59,10 +59,11 @@ const store = () => {
   };
 };
 
-const bookUI = (ulClass, buttonClass, liClass) => {
-  const displayBook = ({ author, title, pages }) => {
+const bookUI = (ulClass, buttonClass, removeBtn, liClass) => {
+  const displayBook = ({ author, title, pages, id }) => {
     const ul = document.createElement('ul');
     ul.className = ulClass;
+    ul.id = id;
 
     const bookAuthor = document.createElement('li');
     bookAuthor.textContent = `Book Author: ${author}`;
@@ -79,6 +80,8 @@ const bookUI = (ulClass, buttonClass, liClass) => {
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove Book';
     removeButton.className = buttonClass;
+    removeButton.value = removeBtn;
+    removeButton.id = id;
 
     const readButton = document.createElement('button');
     readButton.textContent = 'Read';
@@ -124,20 +127,38 @@ const handleEventListeners = (
     displayFact.displayBook(book);
   };
 
+  const handleBookRemoval = event => {
+    const { target } = event;
+    if (target.value === 'remove-btn') {
+      const currentId = target.id;
+      const element = document.getElementById(currentId);
+      element.remove();
+      storeFact.remove(currentId);
+    }
+  };
+
   return {
     handleBookAddition,
+    handleBookRemoval,
   };
 };
 
-const form = document.querySelector('#new-book-form');
-const keep = store();
-const display = bookUI('book-ul', 'buttons');
-display.displayAllBook(keep.all());
-
-const addToDom = handleEventListeners('.book-author', '.book-title', '.book-pages', keep, display);
-
 const startApp = () => {
-  form.addEventListener('submit', addToDom.handleBookAddition);
+  const body = document.querySelector('body');
+  const form = document.querySelector('#new-book-form');
+  const keep = store();
+  const display = bookUI('book-ul', 'buttons', 'remove-btn');
+  const eventListener = handleEventListeners(
+    '.book-author',
+    '.book-title',
+    '.book-pages',
+    keep,
+    display,
+  );
+  display.displayAllBook(keep.all());
+
+  form.addEventListener('submit', eventListener.handleBookAddition);
+  body.addEventListener('click', eventListener.handleBookRemoval);
 };
 
 startApp();

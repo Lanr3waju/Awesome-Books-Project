@@ -40,13 +40,13 @@ input {
 
 .book-ul {
   display: flex;
-  width: 94%;
+  width: 95%;
   height: 50px;
   border-radius: 10px;
   margin: 3px auto;
   justify-content: space-around;
   align-items: center;
-  transition: all 100ms linear;
+  transition: all 200ms linear;
 }
 
 .book-ul:nth-child(1) {
@@ -63,6 +63,8 @@ input {
 
 .book-ul:hover {
   transform: scale(1.03);
+  width: 87%;
+  transition: all 200ms linear;
 }
 
 .buttons {
