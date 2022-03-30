@@ -103,45 +103,41 @@ const bookUI = (ulClass, buttonClass, liClass) => {
   };
 };
 
-const handleEventListeners = (formId, bookAuthorClass, bookTitleClass, bookPagesClass) => {
-  const form = document.querySelector(formId);
+const handleEventListeners = (
+  bookAuthorClass,
+  bookTitleClass,
+  bookPagesClass,
+  storeFact,
+  displayFact,
+) => {
   const inputBookAuthor = document.querySelector(bookAuthorClass);
   const inputBookTitle = document.querySelector(bookTitleClass);
   const inputBookPage = document.querySelector(bookPagesClass);
 
-  const keep = store();
-  const display = bookUI('book-ul', 'buttons');
-
-  display.displayAllBook(keep.all());
-
   const handleBookAddition = event => {
     event.preventDefault();
-    const book = keep.add({
+    const book = storeFact.add({
       author: inputBookAuthor.value,
       title: inputBookTitle.value,
       pages: inputBookPage.value,
     });
-    display.displayBook(book);
-  };
-
-  const addToDomOnClick = () => {
-    form.addEventListener('submit', handleBookAddition);
+    displayFact.displayBook(book);
   };
 
   return {
-    addToDomOnClick,
+    handleBookAddition,
   };
 };
 
-const addToDom = handleEventListeners(
-  '#new-book-form',
-  '.book-author',
-  '.book-title',
-  '.book-pages',
-);
+const form = document.querySelector('#new-book-form');
+const keep = store();
+const display = bookUI('book-ul', 'buttons');
+display.displayAllBook(keep.all());
+
+const addToDom = handleEventListeners('.book-author', '.book-title', '.book-pages', keep, display);
 
 const startApp = () => {
-  addToDom.addToDomOnClick();
+  form.addEventListener('submit', addToDom.handleBookAddition);
 };
 
 startApp();
