@@ -59,23 +59,26 @@ const store = () => {
   };
 };
 
-const bookUI = (ulClass, buttonClass, removeBtn, liClass) => {
+const bookUI = (ulClass, parentLi, buttonClass, removeBtn, bookUlClass) => {
   const displayBook = ({ author, title, pages, id }) => {
-    const ul = document.createElement('ul');
-    ul.className = ulClass;
+    const ul = document.createElement('li');
+    ul.className = parentLi;
     ul.id = id;
+
+    const bookCard = document.createElement('section');
+    bookCard.className = ulClass;
+
+    const bookCardUl = document.createElement('ul');
+    bookCardUl.className = bookUlClass;
 
     const bookAuthor = document.createElement('li');
     bookAuthor.textContent = `Book Author: ${author}`;
-    bookAuthor.className = liClass;
 
     const bookTitle = document.createElement('li');
     bookTitle.textContent = `Book Title: ${title}`;
-    bookTitle.className = liClass;
 
     const bookPages = document.createElement('li');
     bookPages.textContent = `No of Pages: ${pages}`;
-    bookTitle.className = liClass;
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove Book';
@@ -88,11 +91,13 @@ const bookUI = (ulClass, buttonClass, removeBtn, liClass) => {
     readButton.className = buttonClass;
 
     const container = document.querySelector('#books-container');
-    ul.appendChild(bookAuthor);
-    ul.appendChild(bookTitle);
-    ul.appendChild(bookPages);
-    ul.appendChild(removeButton);
-    ul.appendChild(readButton);
+    bookCardUl.appendChild(bookAuthor);
+    bookCardUl.appendChild(bookTitle);
+    bookCardUl.appendChild(bookPages);
+    bookCard.appendChild(bookCardUl);
+    bookCard.appendChild(removeButton);
+    bookCard.appendChild(readButton);
+    ul.appendChild(bookCard);
     container.appendChild(ul);
   };
 
@@ -147,7 +152,7 @@ const startApp = () => {
   const body = document.querySelector('body');
   const form = document.querySelector('#new-book-form');
   const keep = store();
-  const display = bookUI('book-ul', 'buttons', 'remove-btn');
+  const display = bookUI('book-ul', 'parent-li', 'buttons', 'remove-btn', 'card-ul');
   const eventListener = handleEventListeners(
     '.book-author',
     '.book-title',
