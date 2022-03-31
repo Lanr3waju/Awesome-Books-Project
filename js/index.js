@@ -8,7 +8,6 @@ const store = () => {
   };
 
   let memory = [];
-  const read = false;
 
   const isValid = ({ author, title, pages }) =>
     // eslint-disable-next-line implicit-arrow-linebreak
@@ -32,6 +31,7 @@ const store = () => {
   const add = ({ author, title, pages }) => {
     if (isValid({ author, title, pages })) {
       const id = generateID();
+      const read = false;
       memory = [...memory, { author, title, pages, id, read }];
       return { author, title, pages, id, read };
     }
@@ -59,7 +59,7 @@ const store = () => {
   };
 };
 
-const bookUI = (ulClass, parentLi, buttonClass, removeBtn, bookUlClass) => {
+const bookUI = (ulClass, parentLi, buttonClass, removeBtn, bookUlClass, readValue, readBtn) => {
   const displayBook = ({ author, title, pages, id }) => {
     const ul = document.createElement('li');
     ul.className = parentLi;
@@ -89,6 +89,9 @@ const bookUI = (ulClass, parentLi, buttonClass, removeBtn, bookUlClass) => {
     const readButton = document.createElement('button');
     readButton.textContent = 'Read';
     readButton.className = buttonClass;
+    readButton.className = readBtn;
+    readButton.value = readValue;
+    readButton.id = id;
 
     const container = document.querySelector('#books-container');
     bookCardUl.appendChild(bookAuthor);
@@ -142,9 +145,27 @@ const handleEventListeners = (
     }
   };
 
+  const handleReadMethod = event => {
+    const { target } = event;
+    const read = target;
+    const currentId = target.id;
+    if (target.value === 'read-btn-val') {
+      storeFact.toggleRead(currentId);
+      const readBook = storeFact.all().find(({ id }) => id === currentId);
+      if (readBook.read === true) {
+        read.textContent = 'You Have Read This Book';
+        read.classList.toggle('buttons');
+      } else {
+        read.textContent = 'Try this Book';
+        read.classList.toggle('buttons');
+      }
+    }
+  };
+
   return {
     handleBookAddition,
     handleBookRemoval,
+    handleReadMethod,
   };
 };
 
@@ -152,7 +173,15 @@ const startApp = () => {
   const body = document.querySelector('body');
   const form = document.querySelector('#new-book-form');
   const keep = store();
-  const display = bookUI('book-ul', 'parent-li', 'buttons', 'remove-btn', 'card-ul');
+  const display = bookUI(
+    'book-ul',
+    'parent-li',
+    'buttons',
+    'remove-btn',
+    'card-ul',
+    'read-btn-val',
+    'read',
+  );
   const eventListener = handleEventListeners(
     '.book-author',
     '.book-title',
@@ -164,6 +193,7 @@ const startApp = () => {
 
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
+  body.addEventListener('click', eventListener.handleReadMethod);
 };
 
 startApp();

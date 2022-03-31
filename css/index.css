@@ -31,6 +31,17 @@ body {
   box-shadow: 0 3px 4px gray;
 }
 
+.read {
+  background-color: #1000;
+  border: 2px solid goldenrod;
+  font-family: Lobster, cursive;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 100px;
+  cursor: pointer;
+}
+
 .book-texts {
   display: block;
 }
@@ -77,7 +88,7 @@ input:focus {
 
 .parent-li:hover {
   transform: scale(1.03);
-  width: 87%;
+  width: 90%;
   border-radius: 10px;
   transition: all 200ms linear;
 }
