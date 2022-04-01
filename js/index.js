@@ -7,7 +7,15 @@ const store = () => {
     return id;
   };
 
-  let memory = [];
+  let memory = () => {
+    if (localStorage.length <= 0) {
+      memory = [];
+    }
+    if (localStorage.length > 0) {
+      memory = JSON.parse(localStorage.getItem('memory'));
+    }
+    return memory;
+  };
 
   const isValid = ({ author, title, pages }) =>
     // eslint-disable-next-line implicit-arrow-linebreak
@@ -25,6 +33,7 @@ const store = () => {
 
       return element;
     });
+    localStorage.setItem('memory', JSON.stringify(memory));
     return memory;
   };
 
@@ -33,6 +42,7 @@ const store = () => {
       const id = generateID();
       const read = false;
       memory = [...memory, { author, title, pages, id, read }];
+      localStorage.setItem('memory', JSON.stringify(memory));
       return { author, title, pages, id, read };
     }
     return null;
@@ -40,6 +50,7 @@ const store = () => {
 
   const remove = id => {
     memory = memory.filter(data => data.id !== id);
+    localStorage.setItem('memory', JSON.stringify(memory));
     return memory;
   };
 
@@ -47,10 +58,8 @@ const store = () => {
 
   const count = () => memory.length;
 
-  const all = () => memory;
-
   return {
-    all,
+    memory,
     add,
     remove,
     find,
@@ -87,7 +96,7 @@ const bookUI = (ulClass, parentLi, buttonClass, removeBtn, bookUlClass, readValu
     removeButton.id = id;
 
     const readButton = document.createElement('button');
-    readButton.textContent = 'Read';
+    readButton.textContent = 'Try this Book';
     readButton.className = buttonClass;
     readButton.className = readBtn;
     readButton.value = readValue;
@@ -145,24 +154,44 @@ const handleEventListeners = (
     }
   };
 
+  const load = () => {
+    const read = document.querySelectorAll('.read');
+    const rea = () => {
+      read.forEach(eachReadButton => {
+        const currentId = eachReadButton.id;
+        const readButton = eachReadButton;
+        const readBook = storeFact.memory().find(({ id }) => id === currentId);
+        if (readBook.read === true) {
+          readButton.textContent = 'You Have Read This Book';
+          readButton.classList.add('buttons');
+        } else {
+          readButton.textContent = 'Try this Book';
+          readButton.classList.remove('buttons');
+        }
+      });
+    };
+    rea();
+  };
+
   const handleReadMethod = event => {
     const { target } = event;
     const read = target;
     const currentId = target.id;
     if (target.value === 'read-btn-val') {
       storeFact.toggleRead(currentId);
-      const readBook = storeFact.all().find(({ id }) => id === currentId);
+      const readBook = storeFact.memory().find(({ id }) => id === currentId);
       if (readBook.read === true) {
         read.textContent = 'You Have Read This Book';
-        read.classList.toggle('buttons');
+        read.classList.add('buttons');
       } else {
         read.textContent = 'Try this Book';
-        read.classList.toggle('buttons');
+        read.classList.remove('buttons');
       }
     }
   };
 
   return {
+    load,
     handleBookAddition,
     handleBookRemoval,
     handleReadMethod,
@@ -189,11 +218,13 @@ const startApp = () => {
     keep,
     display,
   );
-  display.displayAllBook(keep.all());
+
+  display.displayAllBook(keep.memory());
 
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
   body.addEventListener('click', eventListener.handleReadMethod);
+  window.addEventListener('load', eventListener.load);
 };
 
 startApp();
