@@ -108,12 +108,15 @@ const bookUi = () => {
 
     const bookAuthor = document.createElement('li');
     bookAuthor.textContent = author;
+    bookAuthor.className = 'li-class';
 
     const bookTitle = document.createElement('li');
     bookTitle.textContent = title;
+    bookTitle.className = 'li-class';
 
     const bookPages = document.createElement('li');
     bookPages.textContent = pages;
+    bookPages.className = 'li-class';
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'X';

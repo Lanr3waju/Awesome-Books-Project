@@ -32,6 +32,7 @@ This is a JavaScript project on building an app which stores books, add to the b
   - Pseudo-selectors (hover; to add hover effect to certain elements)
   - Pseudo-elements
   - CSS position property
+  - CSS media query to make page responsive for mobile
   - `Flexbox`
   - Transition property
   - CSS background property
