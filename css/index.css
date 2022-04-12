@@ -17,7 +17,7 @@ body {
   font-size: larger;
   margin: 0;
   text-align: center;
-  background: url("../img/macro.png") no-repeat;
+  background-color: #e8e7db;
   background-size: 150%;
 }
 
@@ -38,10 +38,13 @@ body {
   text-align: center;
   color: white;
   font-size: 1.8em;
-  text-shadow: 2px 2px 4px gray;
   background-color: black;
   padding: 10px;
   box-shadow: 0 2px 4px white;
+  animation: box 5s ease-in-out 0s infinite;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 .book-texts {
@@ -151,7 +154,7 @@ input:focus {
 .book-header {
   display: flex;
   width: 82%;
-  margin: 20px auto 5px;
+  margin: 100px auto 5px;
   background-color: grey;
   color: black;
   box-shadow: 2px 3px 5px 3px black;
@@ -182,42 +185,37 @@ input:focus {
   transition: all 300ms ease-in-out;
 }
 
-.read:hover {
-  transform: scale(1.1);
-  transition: all 300ms ease-in-out;
+body::-webkit-scrollbar {
+  width: 10px;
 }
 
-@media screen and (min-width: 400px) {
-  body {
-    background: url("../img/beach-epe.png") no-repeat;
-    background-size: cover;
-    animation: box 90s linear 0s infinite;
+body::-webkit-scrollbar-track {
+  background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+@keyframes box {
+  0% {
+    box-shadow: 2px 2px 2px #440a0a;
   }
 
-  @keyframes box {
-    0% {
-      background: url("../img/beach-epe.png") no-repeat;
-      background-size: cover;
-    }
+  25% {
+    box-shadow: 2px 3px 2px #4b2e0a;
+  }
 
-    25% {
-      background: url("../img/leaf.png") no-repeat;
-      background-size: cover;
-    }
+  50% {
+    box-shadow: 2px 2px 4px #3b4107;
+  }
 
-    50% {
-      background: url("../img/red_splash.png") no-repeat;
-      background-size: cover;
-    }
+  75% {
+    box-shadow: 4px 4px 2px #0f4f06;
+  }
 
-    75% {
-      background: url("../img/yg.png") no-repeat;
-      background-size: cover;
-    }
-
-    100% {
-      background: url("../img/yyy.png") no-repeat;
-      background-size: cover;
-    }
+  100% {
+    box-shadow: 4px 4px 2px #080751;
   }
 }
