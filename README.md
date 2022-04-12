@@ -25,14 +25,19 @@ This is a JavaScript project on building an app which stores books, add to the b
 - Implement the use of `array.find()` & `parseInt` to locate the specific books to remove when the appropriate button is clicked.
 - The `JSON` API `stringify` & `parse` was implemented, to enable JS Objects to be used on windows local storage.
 - The `node.localStorage` `set()` & `get()` methods were used to store and retrieve user inouts.
+- Made use of the `HTMLCollection` API with DOM selector `document.querySelectorAll()` to manipulate a list of elements with same class.
+- Implement `factory-functions` with various methods.
 
-* CSS
+- CSS
   - Pseudo-selectors (hover; to add hover effect to certain elements)
   - Pseudo-elements
   - CSS position property
+  - CSS media query to make page responsive for mobile
   - `Flexbox`
   - Transition property
   - CSS background property
+  - CSS animation
+  - `Box-Shadow` & `Text-Shadow` Properties.
 
 ## Live Demo
 
@@ -91,7 +96,7 @@ npm run html-validator
 
 ## 👤 Author
 
-- Github: [@Lanr3waju]https://github.com/Lanr3waju)
+- Github: [@Lanr3waju]<https://github.com/Lanr3waju>)
 - LinkedIn: [@Abass Olanrewaju](https://www.linkedin.com/in/abass-olanrewaju-abdul-wasi-53883422a/)
 - Twitter: [@abdul-wasi-img](https://twitter.com/abdul_wasi_img)
 

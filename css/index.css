@@ -1,82 +1,262 @@
 /* Example of @import use
-
 This imports the `reset.css` file */
 
 @import "./reset.css";
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 ul {
   list-style-type: none;
 }
 
 li {
-  padding: 10px;
+  padding: 1px;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Lobster, cursive;
+  font-size: larger;
   margin: 0;
+  text-align: center;
+  background-color: #e8e7db;
+  background-size: 150%;
+}
+
+.books-container {
+  padding: 15px;
+  border-radius: 5px;
+  width: 80%;
+  margin: 20px auto;
+  background-color: white;
+  box-shadow: 2px 2px 8px black;
+  border: 2px solid gray;
 }
 
 .header {
+  display: flex;
+  justify-content: space-evenly;
   margin: 0;
   text-align: center;
-  color: goldenrod;
+  color: white;
+  font-size: 1.8em;
   background-color: black;
   padding: 10px;
+  box-shadow: 0 2px 4px white;
+  animation: box 5s ease-in-out 0s infinite;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 .book-texts {
   display: block;
 }
 
-.books-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+input {
+  font-family: Lobster, cursive;
+  display: block;
+  border-radius: 8px;
+  padding: 5px;
+  width: 30%;
+  border: 2px solid gray;
+  height: 30px;
+  margin: 10px auto;
 }
 
-input {
-  display: block;
-  margin: 10px;
-  padding: 5px;
-  width: 50%;
-  height: 30px;
+input:focus {
+  outline: none;
+  border: none;
+  background-color: #f9efe2;
+}
+
+.card-ul {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.parent-li {
+  display: flex;
+  height: 100%;
+  margin: 3px auto;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 300ms linear;
+  box-shadow: 2px 3px 5px 3px black;
+  border-radius: 5px;
+}
+
+.book-ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.parent-li:hover {
+  transform: scale(1.02);
+  transition: all 300ms linear;
+}
+
+.parent-li:nth-child(even) {
+  background-color: white;
+  border: 2px solid gray;
+}
+
+.parent-li:nth-child(odd) {
+  background-color: gray;
+  color: white;
 }
 
 .buttons {
-  padding: 8px;
+  font-family: Lobster, cursive;
+  padding: 5px;
   margin: 5px;
-  margin-bottom: 15px;
-  background-color: gold;
-  border: none;
-  border-radius: 5px;
-  width: 100px;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 20px;
+  width: 10%;
+  height: auto;
   cursor: pointer;
+  transition: all 200ms ease-in-out;
+  box-shadow: 2px 3px 5px 3px black;
+}
+
+.buttons:hover {
+  background-color: darkgray;
+  transition: all 200ms ease-in-out;
+  color: white;
 }
 
 .buttons:active {
-  background-color: goldenrod;
-}
-
-.add {
-  margin-top: 10px;
-}
-
-.books-ul {
-  border: 3px solid goldenrod;
-  border-radius: 10px;
-  padding: 5px;
-  width: 40%;
-  height: 150px;
-  text-align: center;
-  transition: all 300ms ease-in-out;
-}
-
-.books-ul:hover {
-  background-color: rgb(237 230 187);
-  transition: all 300ms ease-in-out;
+  background-color: black;
+  color: white;
 }
 
 .book-title {
   margin-top: 30px;
+}
+
+.book-no {
+  width: auto;
+  color: white;
+  font-weight: 300;
+  text-shadow: 3px 3px 2px black;
+}
+
+.add-book {
+  width: 20%;
+  padding: 5px;
+  font-size: 1.2em;
+  margin-bottom: 5%;
+}
+
+.book-header {
+  display: flex;
+  width: 82%;
+  margin: 150px auto 5px;
+  background-color: grey;
+  color: black;
+  box-shadow: 2px 3px 5px 3px black;
+  border-radius: 5px;
+  font-weight: normal;
+  border: 2px solid white;
+}
+
+.head {
+  width: 24%;
+}
+
+.head:nth-child(1) {
+  margin-left: 4%;
+}
+
+.read {
+  background-color: #0fffef00;
+  border: none;
+  font-family: Lobster, cursive;
+  padding: 5px;
+  margin: 5px;
+  height: auto;
+  border-radius: 5px;
+  width: auto;
+  cursor: pointer;
+  color: black;
+  transition: all 300ms ease-in-out;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+@keyframes box {
+  0% {
+    box-shadow: 2px 2px 2px #440a0a;
+  }
+
+  25% {
+    box-shadow: 2px 3px 2px #4b2e0a;
+  }
+
+  50% {
+    box-shadow: 2px 2px 4px #3b4107;
+  }
+
+  75% {
+    box-shadow: 4px 4px 2px #0f4f06;
+  }
+
+  100% {
+    box-shadow: 4px 4px 2px #080751;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  body {
+    font-size: smaller;
+    padding: 10px;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  .header {
+    font-size: 1.3em;
+    margin-bottom: 20%;
+    width: 90%;
+  }
+
+  .add-book {
+    width: 50%;
+  }
+
+  .card-ul {
+    font-size: 11px;
+    padding-left: 5px;
+  }
+
+  .book-header {
+    margin-top: 100px;
+    font-size: 13px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .head {
+    width: 22%;
+  }
+
+  .head:nth-child(1) {
+    margin: 0;
+  }
 }

@@ -10,9 +10,14 @@
   <body>
     <section id="main-section" class="main-section">
       <h1 class="header">
-        AWESOME BOOKS LIBRARY
+        LANR3WAJU - AWESOME BOOKS LIBRARY <span class="book-no" id="book-no"></span>
       </h1>
-      <div id="books-container" class="books-container"></div>
+      <section class="book-header">
+        <h3 class="head">Book Author</h3>
+        <h3 class="head">Book Title</h3>
+        <h3 class="head">Book Pages</h3>
+      </section>
+      <ul id="books-container" class="books-container"></ul>
     </section>
 
     <form id="new-book-form" class="new-book-form">
@@ -28,6 +33,13 @@
         class="book-author"
         type="text"
         placeholder="enter book author"
+        required
+      />
+      <input
+        id="book-pages"
+        class="book-pages"
+        type="number"
+        placeholder="enter book no of pages"
         required
       />
       <button type="submit" class="buttons add-book">Add</button>
