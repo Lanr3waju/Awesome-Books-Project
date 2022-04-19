@@ -1,91 +1,94 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable operator-linebreak */
-const store = (initialData = []) => {
-  const isValid = ({ author, title, pages }) =>
-    // eslint-disable-next-line implicit-arrow-linebreak
+/* eslint-disable max-classes-per-file */
+class Book {
+  constructor({ author, title, pages }) {
+    if (Book.isValid({ author, title, pages })) {
+      this.author = author;
+      this.title = title;
+      this.pages = pages;
+      this.read = false;
+      this.id = Book.generateID();
+    }
+  }
+
+  static isValid = ({ author, title, pages }) =>
     typeof author === 'string' &&
     author.length > 0 &&
     typeof title === 'string' &&
     title.length > 0 &&
-    pages.length > 0;
+    typeof pages === 'number';
 
-  const generateID = () => {
+  static generateID = () => {
     const id = `_${Math.random()
       .toString(36)
       .substr(2, 9)}`;
     return id;
   };
 
-  let memory = [];
-
-  const setToLocalStorage = item => {
-    localStorage.setItem('awesomeBooksStore', JSON.stringify(item));
+  toggleRead = () => {
+    this.read = !this.read;
   };
-
-  const add = ({ author, title, pages }) => {
-    if (isValid({ author, title, pages })) {
-      const id = generateID();
-      memory = [...memory, { author, title, pages, id, read: false }];
-      return { author, title, pages, id, read: false };
-    }
-    return null;
-  };
-
-  const awesomeBooksStore = () => {
-    if (localStorage.getItem('awesomeBooksStore') === null) {
-      initialData.forEach(add);
+}
+class Store {
+  constructor(initialData = []) {
+    this.memory = [];
+    this.newBook = {};
+    if (localStorage.getItem('lanr3wajuAwesomeBooksLibrary') === null) {
+      initialData.forEach(this.add, this);
     } else {
-      memory = JSON.parse(localStorage.getItem('awesomeBooksStore'));
+      this.memory = JSON.parse(localStorage.getItem('lanr3wajuAwesomeBooksLibrary')).map(
+        item => new Book(item),
+      );
     }
+  }
+
+  static setToLocalStorage = item => {
+    localStorage.setItem('lanr3wajuAwesomeBooksLibrary', JSON.stringify(item));
   };
 
-  const toggleRead = id => {
-    memory = memory.map(element => {
+  add = (book = {}) => {
+    this.newBook = new Book(book);
+    this.memory = [...this.memory, this.newBook];
+    Store.setToLocalStorage(this.memory);
+    return this.newBook;
+  };
+
+  toggleRead = id => {
+    this.memory = this.memory.map(element => {
       if (element.id === id) {
-        return { ...element, read: !element.read };
+        element.toggleRead();
       }
       return element;
     });
-    setToLocalStorage(memory);
-    return memory;
+    Store.setToLocalStorage(this.memory);
+    return this.memory;
   };
 
-  const remove = id => {
-    memory = memory.filter(data => data.id !== id);
-    setToLocalStorage(memory);
-    return memory;
+  remove = id => {
+    this.memory = this.memory.filter(book => book.id !== id);
+    Store.setToLocalStorage(this.memory);
+    return this.memory;
   };
 
-  const count = () => {
-    setToLocalStorage(memory);
-    return memory.length;
-  };
+  count = () => this.memory.length;
 
-  const all = () => memory;
+  all = () => this.memory;
+}
 
-  awesomeBooksStore();
-
-  return {
-    all,
-    add,
-    remove,
-    count,
-    toggleRead,
-    generateID,
-  };
-};
-
-const bookUi = () => {
-  const getElementParentId = element => {
+class BookUi {
+  static getElementParentId = element => {
     const parentID = element.parentElement.id;
     return parentID;
   };
 
-  const updateBookNo = noOfBooks => {
+  static updateBookNo = noOfBooks => {
     const bookNo = document.querySelector('#book-no');
     bookNo.textContent = `No. of Books: ${noOfBooks}`;
   };
 
-  const toggleRead = (element, read) => {
+  static toggleRead = (element, read) => {
     if (read) {
       element.textContent = 'You have read this book';
       element.classList.add('buttons');
@@ -95,7 +98,7 @@ const bookUi = () => {
     }
   };
 
-  const displayBook = ({ author, title, pages, id, read }) => {
+  static displayBook = ({ author, title, pages, id, read }) => {
     const ul = document.createElement('li');
     ul.className = 'parent-li';
 
@@ -127,7 +130,7 @@ const bookUi = () => {
     readButton.className = 'read';
     readButton.value = 'read-btn-val';
 
-    toggleRead(readButton, read);
+    BookUi.toggleRead(readButton, read);
 
     const container = document.querySelector('#books-container');
     bookCardUl.appendChild(bookAuthor);
@@ -140,18 +143,10 @@ const bookUi = () => {
     container.appendChild(ul);
   };
 
-  const displayAllBook = (allBooks = []) => {
-    allBooks.forEach(displayBook);
+  static displayAllBook = (allBooks = []) => {
+    allBooks.forEach(BookUi.displayBook);
   };
-
-  return {
-    displayBook,
-    displayAllBook,
-    getElementParentId,
-    updateBookNo,
-    toggleRead,
-  };
-};
+}
 
 const handleEventListeners = (
   bookAuthorClass,
@@ -171,7 +166,7 @@ const handleEventListeners = (
     const book = storeFact.add({
       author: inputBookAuthor.value,
       title: inputBookTitle.value,
-      pages: inputBookPage.value,
+      pages: inputBookPage.valueAsNumber,
     });
     displayFact.displayBook(book);
     const bookNo = storeFact.count();
@@ -214,36 +209,23 @@ const startApp = () => {
   const body = document.querySelector('body');
   const form = document.querySelector('#new-book-form');
 
-  const keep = store([
-    {
-      author: 'Chinua Achebe',
-      title: 'Things fall apart',
-      pages: '500',
-    },
-    {
-      author: 'Chinua Achebe',
-      title: 'Java for Dummies',
-      pages: '120000',
-    },
-    {
-      author: 'Chinua Achebe',
-      title: 'Things fall apart',
-      pages: '1200',
-    },
+  const keep = new Store([
+    { author: 'Abass Olanrewaju', title: 'JS for Dummies', pages: 500 },
+    { author: 'Lanr3waju', title: 'Photography 101', pages: 250 },
+    { author: 'Abdul Wasi', title: 'HTML for beginners', pages: 100 },
   ]);
 
-  const display = bookUi();
   const eventListener = handleEventListeners(
     '.book-author',
     '.book-title',
     '.book-pages',
     keep,
-    display,
+    BookUi,
   );
 
-  display.displayAllBook(keep.all());
+  BookUi.displayAllBook(keep.all());
   const bookNo = eventListener.newBookNo();
-  display.updateBookNo(bookNo);
+  BookUi.updateBookNo(bookNo);
 
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
