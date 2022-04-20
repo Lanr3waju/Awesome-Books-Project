@@ -130,7 +130,6 @@ input:focus {
 
 .buttons:active {
   background-color: black;
-  color: white;
 }
 
 .book-title {

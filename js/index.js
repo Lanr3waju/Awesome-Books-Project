@@ -1,31 +1,17 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable operator-linebreak */
-/* eslint-disable max-classes-per-file */
 class Book {
-  constructor({ author, title, pages }) {
+  constructor({ author, title, pages, read = false, id = Book.generateID() }) {
     if (Book.isValid({ author, title, pages })) {
       this.author = author;
       this.title = title;
       this.pages = pages;
-      this.read = false;
-      this.id = Book.generateID();
+      this.read = read;
+      this.id = id;
     }
   }
 
-  static isValid = ({ author, title, pages }) =>
-    typeof author === 'string' &&
-    author.length > 0 &&
-    typeof title === 'string' &&
-    title.length > 0 &&
-    typeof pages === 'number';
+  static isValid = ({ author, title, pages }) => typeof author === 'string' && author.length > 0 && typeof title === 'string' && title.length > 0 && typeof pages === 'number';
 
-  static generateID = () => {
-    const id = `_${Math.random()
-      .toString(36)
-      .substr(2, 9)}`;
-    return id;
-  };
+  generateID = () => `_${Math.random().toString(36).substr(2, 9)}`;
 
   toggleRead = () => {
     this.read = !this.read;
@@ -34,7 +20,6 @@ class Book {
 class Store {
   constructor(initialData = []) {
     this.memory = [];
-    this.newBook = {};
     if (localStorage.getItem('lanr3wajuAwesomeBooksLibrary') === null) {
       initialData.forEach(this.add, this);
     } else {

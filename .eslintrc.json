@@ -12,13 +12,15 @@
   },
   "extends": ["airbnb-base"],
   "rules": {
+    "class-methods-use-this": 0,
+    "max-classes-per-file": 0,
     "no-shadow": "off",
     "no-param-reassign": 0,
     "eol-last": "off",
     "object-curly-newline": "off",
     "arrow-parens": "off",
     "import/extensions": [
-      1,
+      0,
       {
         "js": "always",
         "json": "always"
