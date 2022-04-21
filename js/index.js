@@ -1,5 +1,5 @@
 class Book {
-  constructor({ author, title, pages, read = false, id = Book.generateID() }) {
+  constructor({ author, title, pages, read = false, id = this.generateID() }) {
     if (Book.isValid({ author, title, pages })) {
       this.author = author;
       this.title = title;
@@ -23,9 +23,7 @@ class Store {
     if (localStorage.getItem('lanr3wajuAwesomeBooksLibrary') === null) {
       initialData.forEach(this.add, this);
     } else {
-      this.memory = JSON.parse(localStorage.getItem('lanr3wajuAwesomeBooksLibrary')).map(
-        item => new Book(item),
-      );
+      JSON.parse(localStorage.getItem('lanr3wajuAwesomeBooksLibrary')).forEach(this.add, this);
     }
   }
 
@@ -63,27 +61,7 @@ class Store {
 }
 
 class BookUi {
-  static getElementParentId = element => {
-    const parentID = element.parentElement.id;
-    return parentID;
-  };
-
-  static updateBookNo = noOfBooks => {
-    const bookNo = document.querySelector('#book-no');
-    bookNo.textContent = `No. of Books: ${noOfBooks}`;
-  };
-
-  static toggleRead = (element, read) => {
-    if (read) {
-      element.textContent = 'You have read this book';
-      element.classList.add('buttons');
-    } else {
-      element.textContent = 'Try this book';
-      element.classList.remove('buttons');
-    }
-  };
-
-  static displayBook = ({ author, title, pages, id, read }) => {
+  displayBook = ({ author, title, pages, id, read }) => {
     const ul = document.createElement('li');
     ul.className = 'parent-li';
 
@@ -115,7 +93,7 @@ class BookUi {
     readButton.className = 'read';
     readButton.value = 'read-btn-val';
 
-    BookUi.toggleRead(readButton, read);
+    this.toggleRead(readButton, read);
 
     const container = document.querySelector('#books-container');
     bookCardUl.appendChild(bookAuthor);
@@ -128,67 +106,78 @@ class BookUi {
     container.appendChild(ul);
   };
 
-  static displayAllBook = (allBooks = []) => {
-    allBooks.forEach(BookUi.displayBook);
+  getElementParentId = element => {
+    const parentID = element.parentElement.id;
+    return parentID;
+  };
+
+  updateBookNo = noOfBooks => {
+    const bookNo = document.querySelector('#book-no');
+    bookNo.textContent = `No. of Books: ${noOfBooks}`;
+  };
+
+  toggleRead = (element, read) => {
+    if (read) {
+      element.textContent = 'You have read this book';
+      element.classList.add('buttons');
+    } else {
+      element.textContent = 'Try this book';
+      element.classList.remove('buttons');
+    }
+  };
+
+  displayAllBook = (allBooks = []) => {
+    allBooks.forEach(this.displayBook);
   };
 }
 
-const handleEventListeners = (
-  bookAuthorClass,
-  bookTitleClass,
-  bookPagesClass,
-  storeFact,
-  displayFact,
-) => {
-  const inputBookAuthor = document.querySelector(bookAuthorClass);
-  const inputBookTitle = document.querySelector(bookTitleClass);
-  const inputBookPage = document.querySelector(bookPagesClass);
+class EventListeners {
+  constructor(bookAuthorClass, bookTitleClass, bookPagesClass, storeFact, newBook) {
+    this.inputBookAuthor = document.querySelector(bookAuthorClass);
+    this.inputBookTitle = document.querySelector(bookTitleClass);
+    this.inputBookPage = document.querySelector(bookPagesClass);
+    this.storeFact = storeFact;
+    this.newBook = newBook;
+  }
 
-  const updateBookNo = bookNo => displayFact.updateBookNo(bookNo);
+  updateBookNo = bookNo => this.newBook.updateBookNo(bookNo);
 
-  const handleBookAddition = event => {
+  handleBookAddition = event => {
     event.preventDefault();
-    const book = storeFact.add({
-      author: inputBookAuthor.value,
-      title: inputBookTitle.value,
-      pages: inputBookPage.valueAsNumber,
+    const book = this.storeFact.add({
+      author: this.inputBookAuthor.value,
+      title: this.inputBookTitle.value,
+      pages: this.inputBookPage.valueAsNumber,
     });
-    displayFact.displayBook(book);
-    const bookNo = storeFact.count();
-    updateBookNo(bookNo);
+    this.newBook.displayBook(book);
+    const bookNo = this.storeFact.count();
+    this.updateBookNo(bookNo);
   };
 
-  const handleBookRemoval = event => {
+  handleBookRemoval = event => {
     const { target } = event;
     if (target.value === 'remove-btn') {
-      const parentId = displayFact.getElementParentId(target);
+      const parentId = this.newBook.getElementParentId(target);
       const element = document.getElementById(parentId);
       element.parentElement.remove();
-      storeFact.remove(parentId);
-      const bookNo = storeFact.count();
-      updateBookNo(bookNo);
+      this.storeFact.remove(parentId);
+      const bookNo = this.storeFact.count();
+      this.updateBookNo(bookNo);
     }
   };
 
-  const newBookNo = () => storeFact.count();
+  newBookNo = () => this.storeFact.count();
 
-  const handleReadMethod = event => {
+  handleReadMethod = event => {
     const { target } = event;
-    const parentId = displayFact.getElementParentId(target);
+    const parentId = this.newBook.getElementParentId(target);
     if (target.value === 'read-btn-val') {
-      storeFact.toggleRead(parentId);
-      const readStatus = storeFact.all().find(({ id }) => id === parentId).read;
-      displayFact.toggleRead(target, readStatus);
+      this.storeFact.toggleRead(parentId);
+      const readStatus = this.storeFact.all().find(({ id }) => id === parentId).read;
+      this.newBook.toggleRead(target, readStatus);
     }
   };
-
-  return {
-    handleBookAddition,
-    handleBookRemoval,
-    handleReadMethod,
-    newBookNo,
-  };
-};
+}
 
 const startApp = () => {
   const body = document.querySelector('body');
@@ -200,17 +189,19 @@ const startApp = () => {
     { author: 'Abdul Wasi', title: 'HTML for beginners', pages: 100 },
   ]);
 
-  const eventListener = handleEventListeners(
+  const newBook = new BookUi();
+
+  const eventListener = new EventListeners(
     '.book-author',
     '.book-title',
     '.book-pages',
     keep,
-    BookUi,
+    newBook,
   );
 
-  BookUi.displayAllBook(keep.all());
+  newBook.displayAllBook(keep.all());
   const bookNo = eventListener.newBookNo();
-  BookUi.updateBookNo(bookNo);
+  newBook.updateBookNo(bookNo);
 
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
