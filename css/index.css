@@ -2,10 +2,15 @@
 This imports the `reset.css` file */
 
 @import "./reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 ul {
   list-style-type: none;
+  padding: 0;
+}
+
+.margin-centre {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 li {
@@ -13,7 +18,7 @@ li {
 }
 
 body {
-  font-family: Lobster, cursive;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
   font-size: larger;
   margin: 0;
   text-align: center;
@@ -24,11 +29,21 @@ body {
 .books-container {
   padding: 15px;
   border-radius: 5px;
-  width: 80%;
-  margin: 20px auto;
+  width: 70%;
+  margin: 200px auto 20px;
   background-color: white;
   box-shadow: 2px 2px 8px black;
   border: 2px solid gray;
+}
+
+.card-ul {
+  display: grid;
+  grid-template-columns: 60% 30%;
+  width: 100%;
+  justify-content: space-between;
+  justify-items: start;
+  align-items: center;
+  padding: 2px;
 }
 
 .header {
@@ -54,9 +69,9 @@ body {
 input {
   font-family: Lobster, cursive;
   display: block;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 5px;
-  width: 30%;
+  width: 100%;
   border: 2px solid gray;
   height: 30px;
   margin: 10px auto;
@@ -66,13 +81,6 @@ input:focus {
   outline: none;
   border: none;
   background-color: #f9efe2;
-}
-
-.card-ul {
-  display: flex;
-  width: 70%;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .parent-li {
@@ -88,8 +96,9 @@ input:focus {
 
 .book-ul {
   width: 100%;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 50% 20% 20%;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -109,17 +118,22 @@ input:focus {
 }
 
 .buttons {
-  font-family: Lobster, cursive;
-  padding: 5px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  padding: 2px;
   margin: 5px;
   background-color: white;
   border: 1px solid gray;
-  border-radius: 20px;
-  width: 10%;
-  height: auto;
+  border-radius: 10px;
+  width: auto;
+  height: 30px;
   cursor: pointer;
   transition: all 200ms ease-in-out;
   box-shadow: 2px 3px 5px 3px black;
+}
+
+.form-header {
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .buttons:hover {
@@ -132,10 +146,6 @@ input:focus {
   background-color: black;
 }
 
-.book-title {
-  margin-top: 30px;
-}
-
 .book-no {
   width: auto;
   color: white;
@@ -144,9 +154,10 @@ input:focus {
 }
 
 .add-book {
+  height: auto;
   width: 20%;
-  padding: 5px;
-  font-size: 1.2em;
+  padding: 10px;
+  border-radius: 0;
   margin-bottom: 5%;
 }
 
@@ -184,6 +195,10 @@ input:focus {
   transition: all 300ms ease-in-out;
 }
 
+.read:hover {
+  box-shadow: 2px 3px 5px 3px black;
+}
+
 body::-webkit-scrollbar {
   width: 10px;
 }
@@ -195,6 +210,34 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: darkgray;
   border-radius: 10px;
+}
+
+.new-book-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 40%;
+  align-items: flex-end;
+}
+
+.empty-book-alert {
+  color: red;
+  font-weight: bold;
+  animation: text 3s linear 0s infinite;
+}
+
+@keyframes text {
+  0% {
+    text-shadow: 1px 1px 2px #bd2f2f;
+  }
+
+  50% {
+    text-shadow: 1px 1px 8px #7b0b0b;
+  }
+
+  100% {
+    text-shadow: 1px 1px 15px #bc2c0b;
+  }
 }
 
 @keyframes box {
@@ -235,13 +278,20 @@ body::-webkit-scrollbar-thumb {
     width: 90%;
   }
 
+  .buttons {
+    font-size: 0.8em;
+  }
+
+  .read {
+    font-size: 0.8em;
+  }
+
   .add-book {
     width: 50%;
   }
 
   .card-ul {
     font-size: 11px;
-    padding-left: 5px;
   }
 
   .book-header {
@@ -255,7 +305,15 @@ body::-webkit-scrollbar-thumb {
     width: 22%;
   }
 
+  .books-container {
+    width: 90%;
+  }
+
   .head:nth-child(1) {
     margin: 0;
+  }
+
+  .new-book-form {
+    width: 70%;
   }
 }

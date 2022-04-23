@@ -61,6 +61,10 @@ class Store {
 }
 
 class BookUi {
+  constructor() {
+    this.container = document.querySelector('#books-container');
+  }
+
   displayBook = ({ author, title, pages, id, read }) => {
     const ul = document.createElement('li');
     ul.className = 'parent-li';
@@ -72,20 +76,16 @@ class BookUi {
     const bookCardUl = document.createElement('ul');
     bookCardUl.className = 'card-ul';
 
-    const bookAuthor = document.createElement('li');
-    bookAuthor.textContent = author;
-    bookAuthor.className = 'li-class';
-
-    const bookTitle = document.createElement('li');
-    bookTitle.textContent = title;
-    bookTitle.className = 'li-class';
+    const bookData = document.createElement('li');
+    bookData.textContent = `${title} by ${author}`;
+    bookData.className = 'li-class';
 
     const bookPages = document.createElement('li');
-    bookPages.textContent = pages;
+    bookPages.textContent = `${pages} page(s)`;
     bookPages.className = 'li-class';
 
     const removeButton = document.createElement('button');
-    removeButton.textContent = 'X';
+    removeButton.textContent = 'Remove';
     removeButton.className = 'buttons';
     removeButton.value = 'remove-btn';
 
@@ -95,15 +95,13 @@ class BookUi {
 
     this.toggleRead(readButton, read);
 
-    const container = document.querySelector('#books-container');
-    bookCardUl.appendChild(bookAuthor);
-    bookCardUl.appendChild(bookTitle);
+    bookCardUl.appendChild(bookData);
     bookCardUl.appendChild(bookPages);
     bookCard.appendChild(bookCardUl);
     bookCard.appendChild(removeButton);
     bookCard.appendChild(readButton);
     ul.appendChild(bookCard);
-    container.appendChild(ul);
+    this.container.prepend(ul);
   };
 
   getElementParentId = element => {
@@ -114,6 +112,21 @@ class BookUi {
   updateBookNo = noOfBooks => {
     const bookNo = document.querySelector('#book-no');
     bookNo.textContent = `No. of Books: ${noOfBooks}`;
+  };
+
+  displayEmptyBookAlert = noOfBooks => {
+    if (noOfBooks < 1) {
+      const emptyBookAlert = document.createElement('li');
+      emptyBookAlert.id = 'empty-book-alert';
+      emptyBookAlert.className = 'empty-book-alert';
+      this.container.appendChild(emptyBookAlert);
+      emptyBookAlert.textContent = 'This Library is Empty, Add your Awesome Books';
+    } else {
+      const alert = document.querySelector('#empty-book-alert');
+      if (alert) {
+        this.container.removeChild(alert);
+      }
+    }
   };
 
   toggleRead = (element, read) => {
@@ -131,7 +144,7 @@ class BookUi {
   };
 }
 
-class EventListeners {
+class HandleEventListeners {
   constructor(bookAuthorClass, bookTitleClass, bookPagesClass, storeFact, newBook) {
     this.inputBookAuthor = document.querySelector(bookAuthorClass);
     this.inputBookTitle = document.querySelector(bookTitleClass);
@@ -142,6 +155,10 @@ class EventListeners {
 
   updateBookNo = bookNo => this.newBook.updateBookNo(bookNo);
 
+  handleEmptyLibraryAlert = (bookNo) => {
+    this.newBook.displayEmptyBookAlert(bookNo);
+  };
+
   handleBookAddition = event => {
     event.preventDefault();
     const book = this.storeFact.add({
@@ -150,8 +167,11 @@ class EventListeners {
       pages: this.inputBookPage.valueAsNumber,
     });
     this.newBook.displayBook(book);
-    const bookNo = this.storeFact.count();
-    this.updateBookNo(bookNo);
+    this.handleEmptyLibraryAlert(this.storeFact.count());
+    this.inputBookAuthor.value = '';
+    this.inputBookTitle.value = '';
+    this.inputBookPage.value = '';
+    this.updateBookNo(this.newBookNo());
   };
 
   handleBookRemoval = event => {
@@ -161,8 +181,8 @@ class EventListeners {
       const element = document.getElementById(parentId);
       element.parentElement.remove();
       this.storeFact.remove(parentId);
-      const bookNo = this.storeFact.count();
-      this.updateBookNo(bookNo);
+      this.updateBookNo(this.newBookNo());
+      this.handleEmptyLibraryAlert(this.storeFact.count());
     }
   };
 
@@ -191,7 +211,7 @@ const startApp = () => {
 
   const newBook = new BookUi();
 
-  const eventListener = new EventListeners(
+  const eventListener = new HandleEventListeners(
     '.book-author',
     '.book-title',
     '.book-pages',
@@ -202,6 +222,7 @@ const startApp = () => {
   newBook.displayAllBook(keep.all());
   const bookNo = eventListener.newBookNo();
   newBook.updateBookNo(bookNo);
+  newBook.displayEmptyBookAlert(bookNo);
 
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
