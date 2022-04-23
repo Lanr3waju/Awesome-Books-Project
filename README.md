@@ -26,7 +26,7 @@ This is a JavaScript project on building an app which stores books, add to the b
 - The `JSON` API `stringify` & `parse` was implemented, to enable JS Objects to be used on windows local storage.
 - The `node.localStorage` `set()` & `get()` methods were used to store and retrieve user inouts.
 - Made use of the `HTMLCollection` API with DOM selector `document.querySelectorAll()` to manipulate a list of elements with same class.
-- Implement `factory-functions` with various methods.
+- Implement `JS - Class` with static methids.
 
 - CSS
   - Pseudo-selectors (hover; to add hover effect to certain elements)
