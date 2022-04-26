@@ -8,38 +8,72 @@
     <link rel="stylesheet" href="./css/reset.css" />
   </head>
   <body>
-    <section id="main-section" class="main-section">
-      <h1 class="header">
-        LANR3WAJU - AWESOME BOOKS LIBRARY <span class="book-no" id="book-no"></span>
+    <header class="header">
+      <h1 class="header-text">
+        AW3SOM3 BOOKS LIBRARY
       </h1>
-      <ul id="books-container" class="books-container"></ul>
-    </section>
-    <form id="new-book-form" class="new-book-form margin-centre">
-      <h2 class="form-header margin-centre">Add Book</h2>
-      <input
-        id="book-title"
-        class="book-title"
-        type="text"
-        placeholder="enter book title"
-        required
-      />
-      <input
-        id="book-author"
-        class="book-author"
-        type="text"
-        placeholder="enter book author"
-        required
-      />
-      <input
-        id="book-pages"
-        class="book-pages"
-        type="number"
-        placeholder="enter book no of pages"
-        required
-      />
-      <button type="submit" class="buttons add-book">Add</button>
-    </form>
+      <nav class="nav-bar">
+        <div class="nav-item">List</div>
+        <div class="nav-item">Add New</div>
+        <div class="nav-item">Contact</div>
+      </nav>
+    </header>
 
+    <main>
+      <div id="main-section" class=" display-none main-section">
+        <div class="book-no" id="book-no"></div>
+        <ul id="books-container" class="books-container"></ul>
+      </div>
+
+      <form id="new-book-form" class="display-none new-book-form margin-centre">
+        <h2 class="form-header margin-centre">Add Book</h2>
+        <input
+          id="book-title"
+          class="book-title"
+          type="text"
+          placeholder="enter book title"
+          required
+        />
+        <input
+          id="book-author"
+          class="book-author"
+          type="text"
+          placeholder="enter book author"
+          required
+        />
+        <input
+          id="book-pages"
+          class="book-pages"
+          type="number"
+          placeholder="enter book no of pages"
+          required
+        />
+        <button type="submit" class="buttons add-book">Add</button>
+      </form>
+
+      <section class="contact margin-centre display-none">
+        <h2>Contact</h2>
+        Kindly fill the form below to reach out to us.
+
+        <form>
+          <input class="book-title" type="text" placeholder="enter your name" required />
+          <input class="book-title" type="email" placeholder="enter your email" required />
+          <textarea
+            class="book-title"
+            placeholder="enter your message"
+            aria-label="comment"
+            name="comments"
+            id="message"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-text">copyright: Abass Olanrewaju Waiu</p>
+    </footer>
     <script src="./js/index.js"></script>
   </body>
 </html>
