@@ -151,7 +151,28 @@ class HandleEventListeners {
     this.inputBookPage = document.querySelector(bookPagesClass);
     this.storeFact = storeFact;
     this.newBook = newBook;
+    this.bookList = document.querySelector('#main-section');
+    this.addBookForm = document.querySelector('#new-book-form');
+    this.contactPage = document.querySelector('#contact');
   }
+
+  toggleBookList = () => {
+    this.bookList.classList.add('main-section');
+    this.addBookForm.classList.remove('new-book-form');
+    this.contactPage.classList.remove('contact');
+  };
+
+  toggleAddBookForm = () => {
+    this.addBookForm.classList.add('new-book-form');
+    this.bookList.classList.remove('main-section');
+    this.contactPage.classList.remove('contact');
+  };
+
+  toggleContactPage = () => {
+    this.contactPage.classList.add('contact');
+    this.bookList.classList.remove('main-section');
+    this.addBookForm.classList.remove('new-book-form');
+  };
 
   updateBookNo = bookNo => this.newBook.updateBookNo(bookNo);
 
@@ -168,6 +189,7 @@ class HandleEventListeners {
     });
     this.newBook.displayBook(book);
     this.handleEmptyLibraryAlert(this.storeFact.count());
+    this.toggleBookList();
     this.inputBookAuthor.value = '';
     this.inputBookTitle.value = '';
     this.inputBookPage.value = '';
@@ -202,6 +224,9 @@ class HandleEventListeners {
 const startApp = () => {
   const body = document.querySelector('body');
   const form = document.querySelector('#new-book-form');
+  const displayListBtn = document.querySelector('#list-btn');
+  const displayAddNewBtn = document.querySelector('#add-new-btn');
+  const displayContactFormBtn = document.querySelector('#contact-btn');
 
   const keep = new Store([
     { author: 'Abass Olanrewaju', title: 'JS for Dummies', pages: 500 },
@@ -227,6 +252,9 @@ const startApp = () => {
   form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
   body.addEventListener('click', eventListener.handleReadMethod);
+  displayListBtn.addEventListener('click', eventListener.toggleBookList);
+  displayAddNewBtn.addEventListener('click', eventListener.toggleAddBookForm);
+  displayContactFormBtn.addEventListener('click', eventListener.toggleContactPage);
 };
 
 startApp();

@@ -8,6 +8,10 @@ ul {
   padding: 0;
 }
 
+main {
+  margin-bottom: 38vh;
+}
+
 .display-none {
   display: none;
 }
@@ -22,11 +26,13 @@ li {
 }
 
 body {
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: larger;
   margin: 0;
   text-align: center;
   background-color: #e8e7db;
+  height: 150%;
+  position: relative;
 }
 
 .books-container {
@@ -74,7 +80,6 @@ body {
 .nav-bar {
   display: flex;
   justify-content: space-around;
-  position: relative;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -116,19 +121,24 @@ body {
   display: block;
 }
 
+.contact-form {
+  text-align: left;
+}
+
 .footer {
-  margin: 0;
+  position: fixed;
   text-align: left;
   background: black;
   padding: 10px;
   color: white;
-  position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
 }
 
 .footer-text {
+  font-style: italic;
+  padding: 10px;
   margin: 0;
   bottom: 0;
   display: block;
@@ -146,7 +156,7 @@ input {
   width: 100%;
   border: 2px solid gray;
   height: 30px;
-  margin: 10px auto;
+  margin: 0 0 10px;
 }
 
 input:focus {
@@ -203,6 +213,14 @@ input:focus {
   box-shadow: 2px 3px 5px 3px black;
 }
 
+.comments {
+  width: 100%;
+  height: 60px;
+  padding: 5px;
+  border: 2px solid gray;
+  font-family: "Comic Sans MS", "Comic Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .form-header {
   margin-bottom: 0;
   text-align: center;
@@ -229,9 +247,9 @@ input:focus {
 .add-book {
   height: auto;
   width: 20%;
+  margin-left: auto;
   padding: 10px;
   border-radius: 0;
-  margin-bottom: 5%;
 }
 
 .book-header {
