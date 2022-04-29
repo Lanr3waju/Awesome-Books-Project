@@ -154,7 +154,14 @@ class HandleEventListeners {
     this.bookList = document.querySelector('#main-section');
     this.addBookForm = document.querySelector('#new-book-form');
     this.contactPage = document.querySelector('#contact');
+    this.hamburger = document.querySelector('#hamburger-btn');
+    this.nav = document.querySelector('#mobile-menu');
   }
+
+  handleHamburgerToggle = () => {
+    this.nav.classList.toggle('active');
+    this.hamburger.classList.toggle('active');
+  };
 
   toggleBookList = () => {
     this.bookList.classList.add('main-section');
@@ -162,16 +169,29 @@ class HandleEventListeners {
     this.contactPage.classList.remove('contact');
   };
 
-  toggleAddBookForm = () => {
-    this.addBookForm.classList.add('new-book-form');
-    this.bookList.classList.remove('main-section');
-    this.contactPage.classList.remove('contact');
+  handleToggleBookList = event => {
+    const { target } = event;
+    if (target.value === 'list-button') {
+      this.toggleBookList();
+    }
   };
 
-  toggleContactPage = () => {
-    this.contactPage.classList.add('contact');
-    this.bookList.classList.remove('main-section');
-    this.addBookForm.classList.remove('new-book-form');
+  toggleAddBookForm = event => {
+    const { target } = event;
+    if (target.value === 'add-button') {
+      this.addBookForm.classList.add('new-book-form');
+      this.bookList.classList.remove('main-section');
+      this.contactPage.classList.remove('contact');
+    }
+  };
+
+  toggleContactPage = event => {
+    const { target } = event;
+    if (target.value === 'contact-button') {
+      this.contactPage.classList.add('contact');
+      this.bookList.classList.remove('main-section');
+      this.addBookForm.classList.remove('new-book-form');
+    }
   };
 
   updateBookNo = bookNo => this.newBook.updateBookNo(bookNo);
@@ -188,11 +208,11 @@ class HandleEventListeners {
       pages: this.inputBookPage.valueAsNumber,
     });
     this.newBook.displayBook(book);
-    this.handleEmptyLibraryAlert(this.storeFact.count());
-    this.toggleBookList();
     this.inputBookAuthor.value = '';
     this.inputBookTitle.value = '';
     this.inputBookPage.value = '';
+    this.toggleBookList();
+    this.handleEmptyLibraryAlert(this.storeFact.count());
     this.updateBookNo(this.newBookNo());
   };
 
@@ -224,9 +244,8 @@ class HandleEventListeners {
 const startApp = () => {
   const body = document.querySelector('body');
   const form = document.querySelector('#new-book-form');
-  const displayListBtn = document.querySelector('#list-btn');
-  const displayAddNewBtn = document.querySelector('#add-new-btn');
-  const displayContactFormBtn = document.querySelector('#contact-btn');
+  const hamburger = document.querySelector('#hamburger-btn');
+  const nav = document.querySelector('#mobile-menu');
 
   const keep = new Store([
     { author: 'Abass Olanrewaju', title: 'JS for Dummies', pages: 500 },
@@ -249,12 +268,14 @@ const startApp = () => {
   newBook.updateBookNo(bookNo);
   newBook.displayEmptyBookAlert(bookNo);
 
-  form.addEventListener('submit', eventListener.handleBookAddition);
   body.addEventListener('click', eventListener.handleBookRemoval);
   body.addEventListener('click', eventListener.handleReadMethod);
-  displayListBtn.addEventListener('click', eventListener.toggleBookList);
-  displayAddNewBtn.addEventListener('click', eventListener.toggleAddBookForm);
-  displayContactFormBtn.addEventListener('click', eventListener.toggleContactPage);
+  body.addEventListener('click', eventListener.handleToggleBookList);
+  body.addEventListener('click', eventListener.toggleAddBookForm);
+  body.addEventListener('click', eventListener.toggleContactPage);
+  hamburger.addEventListener('click', eventListener.handleHamburgerToggle);
+  nav.addEventListener('click', eventListener.handleHamburgerToggle);
+  form.addEventListener('submit', eventListener.handleBookAddition);
 };
 
 startApp();
