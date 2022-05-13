@@ -1,6 +1,7 @@
-import Store from './modules/store';
-import BookUi from './modules/book-ui';
-import HandleEventListeners from './modules/hanndle-event-listener';
+import Store from './store.js';
+import BookUi from './book-ui.js';
+import HandleEventListeners from './hanndle-event-listener.js';
+import initialData from './initialData.js';
 
 const startApp = () => {
   const body = document.querySelector('body');
@@ -8,11 +9,7 @@ const startApp = () => {
   const hamburger = document.querySelector('#hamburger-btn');
   const nav = document.querySelector('#mobile-menu');
 
-  const keep = new Store([
-    { author: 'Abass Olanrewaju', title: 'JS for Dummies', pages: 500 },
-    { author: 'Lanr3waju', title: 'Photography 101', pages: 250 },
-    { author: 'Abdul Wasi', title: 'HTML for beginners', pages: 100 },
-  ]);
+  const keep = new Store(initialData);
 
   const newBook = new BookUi();
 
@@ -39,4 +36,4 @@ const startApp = () => {
   form.addEventListener('submit', eventListener.handleBookAddition);
 };
 
-startApp();
+export default startApp;

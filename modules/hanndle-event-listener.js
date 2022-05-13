@@ -17,21 +17,19 @@ class HandleEventListeners {
     this.hamburger.classList.toggle('active');
   };
 
-  toggleBookList = () => {
+  #toggleBookList = () => {
     this.bookList.classList.add('main-section');
     this.addBookForm.classList.remove('new-book-form');
     this.contactPage.classList.remove('contact');
   };
 
-  handleToggleBookList = event => {
-    const { target } = event;
+  handleToggleBookList = ({ target }) => {
     if (target.value === 'list-button') {
-      this.toggleBookList();
+      this.#toggleBookList();
     }
   };
 
-  toggleAddBookForm = event => {
-    const { target } = event;
+  toggleAddBookForm = ({ target }) => {
     if (target.value === 'add-button') {
       this.addBookForm.classList.add('new-book-form');
       this.bookList.classList.remove('main-section');
@@ -39,8 +37,7 @@ class HandleEventListeners {
     }
   };
 
-  toggleContactPage = event => {
-    const { target } = event;
+  toggleContactPage = ({ target }) => {
     if (target.value === 'contact-button') {
       this.contactPage.classList.add('contact');
       this.bookList.classList.remove('main-section');
@@ -65,13 +62,12 @@ class HandleEventListeners {
     this.inputBookAuthor.value = '';
     this.inputBookTitle.value = '';
     this.inputBookPage.value = '';
-    this.toggleBookList();
+    this.#toggleBookList();
     this.handleEmptyLibraryAlert(this.storeFact.count());
     this.updateBookNo(this.newBookNo());
   };
 
-  handleBookRemoval = event => {
-    const { target } = event;
+  handleBookRemoval = ({ target }) => {
     if (target.value === 'remove-btn') {
       const parentId = this.newBook.getElementParentId(target);
       const element = document.getElementById(parentId);
@@ -84,8 +80,7 @@ class HandleEventListeners {
 
   newBookNo = () => this.storeFact.count();
 
-  handleReadMethod = event => {
-    const { target } = event;
+  handleReadMethod = ({ target }) => {
     const parentId = this.newBook.getElementParentId(target);
     if (target.value === 'read-btn-val') {
       this.storeFact.toggleRead(parentId);
