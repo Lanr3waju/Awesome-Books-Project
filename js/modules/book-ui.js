@@ -5,47 +5,37 @@ class BookUi {
 
   displayBook = ({ author, title, pages, id, read }) => {
     const ul = document.createElement('li');
-    ul.className = 'parent-li';
-
     const bookCard = document.createElement('section');
-    bookCard.className = 'book-ul';
-    bookCard.id = id;
-
     const bookCardUl = document.createElement('ul');
-    bookCardUl.className = 'card-ul';
-
     const bookData = document.createElement('li');
-    bookData.textContent = `${title} by ${author}`;
-    bookData.className = 'li-class';
-
     const bookPages = document.createElement('li');
-    bookPages.textContent = `${pages} page(s)`;
-    bookPages.className = 'li-class';
-
     const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove';
-    removeButton.className = 'buttons';
-    removeButton.value = 'remove-btn';
-
     const readButton = document.createElement('button');
-    readButton.className = 'read';
-    readButton.value = 'read-btn-val';
+
+    const addDomElementAttr = (elementName, elementClass, elementId, elementTextContent, value) => {
+      elementName.className = elementClass;
+      elementName.id = elementId;
+      elementName.textContent = elementTextContent;
+      elementName.value = value;
+    };
+
+    addDomElementAttr(ul, 'parent-li');
+    addDomElementAttr(bookCard, 'book-ul', id);
+    addDomElementAttr(bookCardUl, 'card-ul');
+    addDomElementAttr(bookData, 'li-class', '', `${title} by ${author}`);
+    addDomElementAttr(bookPages, 'li-class', '', `${pages} pages(s)`);
+    addDomElementAttr(removeButton, 'buttons', '', 'Remove', 'remove-btn');
+    addDomElementAttr(readButton, 'read', '', '', 'read-btn-val');
 
     this.toggleRead(readButton, read);
 
-    bookCardUl.appendChild(bookData);
-    bookCardUl.appendChild(bookPages);
-    bookCard.appendChild(bookCardUl);
-    bookCard.appendChild(removeButton);
-    bookCard.appendChild(readButton);
-    ul.appendChild(bookCard);
+    bookCardUl.append(bookData, bookPages);
+    bookCard.append(bookCardUl, removeButton, readButton);
+    ul.append(bookCard);
     this.container.prepend(ul);
   };
 
-  getElementParentId = element => {
-    const parentID = element.parentElement.id;
-    return parentID;
-  };
+  getElementParentId = element => element.parentElement.id;
 
   updateBookNo = noOfBooks => {
     const bookNo = document.querySelector('#book-no');
@@ -77,9 +67,7 @@ class BookUi {
     }
   };
 
-  displayAllBook = (allBooks = []) => {
-    allBooks.forEach(this.displayBook);
-  };
+  displayAllBook = (allBooks = []) => allBooks.forEach(this.displayBook);
 }
 
 export default BookUi;

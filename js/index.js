@@ -1,3 +1,3 @@
-import startApp from '../modules/startApp.js';
+import startApp from './modules/startApp.js';
 
 startApp();
