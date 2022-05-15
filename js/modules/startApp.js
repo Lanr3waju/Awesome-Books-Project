@@ -10,7 +10,6 @@ const startApp = () => {
   const nav = document.querySelector('#mobile-menu');
 
   const keep = new Store(initialData);
-
   const newBook = new BookUi();
 
   const eventListener = new HandleEventListeners(
@@ -26,11 +25,7 @@ const startApp = () => {
   newBook.updateBookNo(bookNo);
   newBook.displayEmptyBookAlert(bookNo);
 
-  body.addEventListener('click', eventListener.handleBookRemoval);
-  body.addEventListener('click', eventListener.handleReadMethod);
-  body.addEventListener('click', eventListener.handleToggleBookList);
-  body.addEventListener('click', eventListener.toggleAddBookForm);
-  body.addEventListener('click', eventListener.toggleContactPage);
+  body.addEventListener('click', eventListener.addClickEventListener);
   hamburger.addEventListener('click', eventListener.handleHamburgerToggle);
   nav.addEventListener('click', eventListener.handleHamburgerToggle);
   form.addEventListener('submit', eventListener.handleBookAddition);

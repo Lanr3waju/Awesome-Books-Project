@@ -19,6 +19,10 @@ class BookUi {
       elementName.value = value;
     };
 
+    const addDataSetToElement = (element, data) => {
+      element.setAttribute('data-action', data);
+    };
+
     addDomElementAttr(ul, 'parent-li');
     addDomElementAttr(bookCard, 'book-ul', id);
     addDomElementAttr(bookCardUl, 'card-ul');
@@ -26,6 +30,9 @@ class BookUi {
     addDomElementAttr(bookPages, 'li-class', '', `${pages} pages(s)`);
     addDomElementAttr(removeButton, 'buttons', '', 'Remove', 'remove-btn');
     addDomElementAttr(readButton, 'read', '', '', 'read-btn-val');
+
+    addDataSetToElement(removeButton, 'remove-book');
+    addDataSetToElement(readButton, 'toggle-read');
 
     this.toggleRead(readButton, read);
 

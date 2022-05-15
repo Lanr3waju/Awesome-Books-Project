@@ -10,6 +10,7 @@ class HandleEventListeners {
     this.contactPage = document.querySelector('#contact');
     this.hamburger = document.querySelector('#hamburger-btn');
     this.nav = document.querySelector('#mobile-menu');
+    this.body = document.querySelector('body');
   }
 
   handleHamburgerToggle = () => {
@@ -23,26 +24,20 @@ class HandleEventListeners {
     this.contactPage.classList.remove('contact');
   };
 
-  handleToggleBookList = ({ target }) => {
-    if (target.value === 'list-button') {
-      this.#toggleBookList();
-    }
+  #handleToggleBookList = () => {
+    this.#toggleBookList();
   };
 
-  toggleAddBookForm = ({ target }) => {
-    if (target.value === 'add-button') {
-      this.addBookForm.classList.add('new-book-form');
-      this.bookList.classList.remove('main-section');
-      this.contactPage.classList.remove('contact');
-    }
+  #toggleAddBookForm = () => {
+    this.addBookForm.classList.add('new-book-form');
+    this.bookList.classList.remove('main-section');
+    this.contactPage.classList.remove('contact');
   };
 
-  toggleContactPage = ({ target }) => {
-    if (target.value === 'contact-button') {
-      this.contactPage.classList.add('contact');
-      this.bookList.classList.remove('main-section');
-      this.addBookForm.classList.remove('new-book-form');
-    }
+  #toggleContactPage = () => {
+    this.contactPage.classList.add('contact');
+    this.bookList.classList.remove('main-section');
+    this.addBookForm.classList.remove('new-book-form');
   };
 
   updateBookNo = bookNo => this.newBook.updateBookNo(bookNo);
@@ -67,25 +62,37 @@ class HandleEventListeners {
     this.updateBookNo(this.newBookNo());
   };
 
-  handleBookRemoval = ({ target }) => {
-    if (target.value === 'remove-btn') {
-      const parentId = this.newBook.getElementParentId(target);
-      const element = document.getElementById(parentId);
-      element.parentElement.remove();
-      this.storeFact.remove(parentId);
-      this.updateBookNo(this.newBookNo());
-      this.handleEmptyLibraryAlert(this.storeFact.count());
-    }
+  #handleBookRemoval = (button) => {
+    const parentId = this.newBook.getElementParentId(button);
+    const book = document.getElementById(parentId);
+    book.parentElement.remove();
+    this.storeFact.remove(parentId);
+    this.updateBookNo(this.newBookNo());
+    this.handleEmptyLibraryAlert(this.storeFact.count());
   };
 
   newBookNo = () => this.storeFact.count();
 
-  handleReadMethod = ({ target }) => {
-    const parentId = this.newBook.getElementParentId(target);
-    if (target.value === 'read-btn-val') {
-      this.storeFact.toggleRead(parentId);
-      const readStatus = this.storeFact.all().find(({ id }) => id === parentId).read;
-      this.newBook.toggleRead(target, readStatus);
+  #handleReadMethod = (element) => {
+    const bookReadStatus = this.newBook.getElementParentId(element);
+    this.storeFact.toggleRead(bookReadStatus);
+    const readStatus = this.storeFact.all().find(({ id }) => id === bookReadStatus).read;
+    this.newBook.toggleRead(element, readStatus);
+  };
+
+  addClickEventListener = ({ target }) => {
+    if (target.dataset.action) {
+      if (target.dataset.action === 'toggle-read') {
+        this.#handleReadMethod(target);
+      } else if (target.dataset.action === 'remove-book') {
+        this.#handleBookRemoval(target);
+      } else if (target.dataset.action === 'show-book-list') {
+        this.#handleToggleBookList();
+      } else if (target.dataset.action === 'show-add-book') {
+        this.#toggleAddBookForm();
+      } else if (target.dataset.action === 'show-contact-us') {
+        this.#toggleContactPage();
+      }
     }
   };
 }

@@ -15,12 +15,24 @@
       <nav>
         <ul class="desktop-nav-bar display-none-mobile">
           <li>
-            <button value="list-button" class="nav-item desktop-nav" id="list-btn" type="button">
+            <button
+              value="list-button"
+              class="nav-item desktop-nav"
+              id="list-btn"
+              data-action="show-book-list"
+              type="button"
+            >
               List
             </button>
           </li>
           <li>
-            <button value="add-button" class="nav-item desktop-nav" id="add-new-btn" type="button">
+            <button
+              value="add-button"
+              class="nav-item desktop-nav"
+              id="add-new-btn"
+              data-action="show-add-book"
+              type="button"
+            >
               Add New
             </button>
           </li>
@@ -30,12 +42,17 @@
               class="nav-item desktop-nav"
               id="contact-btn"
               type="button"
+              data-action="show-contact-us"
             >
               Contact
             </button>
           </li>
         </ul>
-        <ul class="hamburger-btn display-none-desktop" id="hamburger-btn">
+        <ul
+          class="hamburger-btn display-none-desktop"
+          data-action="open-hamburger"
+          id="hamburger-btn"
+        >
           <li class="ham ham-bar-1"></li>
           <li class="ham ham-bar-2"></li>
           <li class="ham ham-bar-3"></li>
@@ -43,7 +60,7 @@
       </nav>
     </header>
 
-    <ul class="display-none-desktop mobile-menu" id="mobile-menu">
+    <ul class="display-none-desktop mobile-menu" data-action="show-mobile-menu" id="mobile-menu">
       <li>
         <button value="list-button" class=" mobile-menu-text nav-item" type="button">List</button>
       </li>
@@ -63,7 +80,7 @@
         <ul id="books-container" class="books-container"></ul>
       </div>
 
-      <form id="new-book-form" class="display-none margin-centre">
+      <form id="new-book-form" data-action="show-new-book-form" class="display-none margin-centre">
         <h2 class="form-header margin-centre">Add Book</h2>
         <input
           id="book-title"
