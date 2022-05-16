@@ -1,4 +1,4 @@
-import { DateTime } from './luxon.js';
+import { DateTime } from '../lib/luxon.js';
 
 class BookUi {
   constructor() {
@@ -36,10 +36,10 @@ class BookUi {
     addDomElementAttr(bookData, 'li-class', '', `${title} by ${author}`);
     addDomElementAttr(bookPages, 'li-class', '', `${pages} pages(s)`);
     addDomElementAttr(removeButton, 'buttons', '', 'Remove', 'remove-btn');
-    addDomElementAttr(readButton, 'read', '', '', 'read-btn-val');
+    addDomElementAttr(readButton, 'read');
 
     removeButton.setAttribute('data-action', 'remove-book');
-    readButton.setAttribute('data-action', 'read-btn-val');
+    readButton.setAttribute('data-action', 'toggle-read');
 
     this.toggleRead(readButton, read);
 

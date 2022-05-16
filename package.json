@@ -27,7 +27,6 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "jshint": "^2.13.4",
     "luxon": "^2.4.0"
   }
 }
