@@ -20,6 +20,7 @@ const startApp = () => {
     newBook,
   );
 
+  newBook.showTime();
   newBook.displayAllBook(keep.all());
   const bookNo = eventListener.newBookNo();
   newBook.updateBookNo(bookNo);

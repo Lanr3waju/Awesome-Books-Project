@@ -62,16 +62,25 @@
 
     <ul class="display-none-desktop mobile-menu" data-action="show-mobile-menu" id="mobile-menu">
       <li>
-        <button value="list-button" class=" mobile-menu-text nav-item" type="button">List</button>
+        <button data-action="show-book-list" class=" mobile-menu-text nav-item" type="button">
+          List
+        </button>
       </li>
       <li>
-        <button value="add-button" class=" mobile-menu-text nav-item" type="button">Add New</button>
+        <button data-action="show-add-book" class=" mobile-menu-text nav-item" type="button">
+          Add New
+        </button>
       </li>
       <li>
-        <button value="contact-button" class=" mobile-menu-text nav-item" type="button">
+        <button data-action="show-contact-us" class=" mobile-menu-text nav-item" type="button">
           Contact
         </button>
       </li>
+    </ul>
+
+    <ul class="display-time">
+      <li id="display-date"></li>
+      <li id="display-time"></li>
     </ul>
 
     <main>

@@ -28,5 +28,5 @@
     ],
     "prefer-destructuring": ["error", { "object": true, "array": true }]
   },
-  "ignorePatterns": ["dist/", "build/"]
+  "ignorePatterns": ["dist/", "build/", "**/luxon*.js"]
 }

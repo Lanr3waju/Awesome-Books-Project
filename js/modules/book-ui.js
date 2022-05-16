@@ -1,7 +1,18 @@
+import { DateTime } from './luxon.js';
+
 class BookUi {
   constructor() {
     this.container = document.querySelector('#books-container');
+    this.displayDate = document.querySelector('#display-date');
+    this.displayTime = document.querySelector('#display-time');
   }
+
+  showTime = () => {
+    const date = DateTime.now().toFormat('yyyy LLL dd');
+    const time = DateTime.now().toISOTime();
+    this.displayDate.textContent = date;
+    this.displayTime.textContent = time;
+  };
 
   displayBook = ({ author, title, pages, id, read }) => {
     const ul = document.createElement('li');
