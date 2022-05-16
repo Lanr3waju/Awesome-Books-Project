@@ -82,16 +82,30 @@ class HandleEventListeners {
 
   addClickEventListener = ({ target }) => {
     if (target.dataset.action) {
-      if (target.dataset.action === 'toggle-read') {
-        this.#handleReadMethod(target);
-      } else if (target.dataset.action === 'remove-book') {
-        this.#handleBookRemoval(target);
-      } else if (target.dataset.action === 'show-book-list') {
-        this.#handleToggleBookList();
-      } else if (target.dataset.action === 'show-add-book') {
-        this.#toggleAddBookForm();
-      } else if (target.dataset.action === 'show-contact-us') {
-        this.#toggleContactPage();
+      switch (target.dataset.action) {
+        case 'toggle-read':
+          this.#handleReadMethod(target);
+          break;
+
+        case 'remove-book':
+          this.#handleBookRemoval(target);
+          break;
+
+        case 'show-book-list':
+          this.#handleToggleBookList();
+          break;
+
+        case 'show-add-book':
+          this.#toggleAddBookForm();
+          break;
+
+        case 'show-contact-us':
+          this.#toggleContactPage();
+          break;
+
+        default:
+          // no default operation
+          break;
       }
     }
   };
