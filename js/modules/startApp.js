@@ -27,6 +27,7 @@ const startApp = () => {
   newBook.displayEmptyBookAlert(bookNo);
 
   body.addEventListener('click', eventListener.addClickEventListener);
+  body.addEventListener('click', eventListener.removeMobileMenu);
   hamburger.addEventListener('click', eventListener.handleHamburgerToggle);
   nav.addEventListener('click', eventListener.handleHamburgerToggle);
   form.addEventListener('submit', eventListener.handleBookAddition);
