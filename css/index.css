@@ -68,12 +68,22 @@ body {
   text-align: center;
   color: white;
   background-color: black;
+  z-index: 100;
   box-shadow: 0 2px 4px white;
   animation: box 5s ease-in-out 0s infinite;
   position: fixed;
   height: auto;
   width: 100%;
   top: 0;
+}
+
+.display-time {
+  position: relative;
+  margin: 100px 0 10px 10px;
+  line-height: 12px;
+  text-align: left;
+  font-size: small;
+  font-weight: bold;
 }
 
 .header-text {
@@ -128,7 +138,6 @@ body {
 }
 
 .contact {
-  margin-top: 100px;
   width: 70%;
   display: block;
 }
@@ -251,7 +260,6 @@ input:focus {
 .book-no {
   width: auto;
   color: black;
-  margin-top: 150px;
   font-weight: 300;
   text-shadow: 0 0 2px black;
 }
@@ -318,7 +326,6 @@ body::-webkit-scrollbar-thumb {
 .new-book-form {
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
   width: 40%;
   align-items: flex-end;
 }
@@ -417,7 +424,6 @@ body::-webkit-scrollbar-thumb {
   }
 
   .new-book-form {
-    margin-top: 0;
     width: 70%;
   }
 
@@ -472,10 +478,6 @@ body::-webkit-scrollbar-thumb {
     margin: 0;
   }
 
-  .contact {
-    margin-top: 0;
-  }
-
   .book-no {
     margin: 0;
   }
@@ -515,6 +517,11 @@ body::-webkit-scrollbar-thumb {
     line-height: 44px;
     color: #5a6e64;
     background-color: #447b5f00;
+  }
+
+  .display-time {
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   .mobile-menu-text:hover {
